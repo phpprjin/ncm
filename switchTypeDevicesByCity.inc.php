@@ -1,13 +1,13 @@
 <?php
-
 if (empty($_SESSION['userid'])){
   exit("Invalid access or User session expired");
 }
-
 $userid = $_SESSION['userid'];
 
 
-$device_list = getSwitchDevicesListByCity($_SESSION['userid'], $_SESSION['city_name']); 
+$device_list = get_switchlist_for_market_subregion($_SESSION['userid'],$_SESSION['marketname'], $_SESSION['city_name']); 
+
+$pages = new Paginator();
 $pages->items_total = $device_list['total_rec'];
 $pages->mid_range =7; 
 $pages->paginate();

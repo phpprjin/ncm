@@ -74,7 +74,7 @@ function user_session_check() {
       $rows = $db2->resultset();
       $result = $rows[0];
   
-      if (!$result ) {
+      if ( ! $result ) {
         header("Location: login.php?msg=Username and Password is wrong");
         exit();
       }
@@ -89,12 +89,9 @@ function user_session_check() {
   }
   else {
 
-    if (isset($_SESSION['userid'])) {
-      $userid = $_SESSION['userid'];  
-      $username=$_SESSION['username'];
-    }
-    else{
-      header("Location: login.php");
+    if ( ! isset($_SESSION['userid'])) {
+      
+      header("Location: login.php?msg=User session expired");
       exit();
     }
   } 
@@ -430,6 +427,51 @@ function getSwitchDevicesListByCity($userid, $city){
   return $resultset;
 }
 
+
+/*
+* Functin to get the switch devices list by market and subregion wise for the user
+*/
+function get_switchlist_for_market_subregion($userid, $market, $subregion){
+
+  global $db2, $pages;
+  $pages->paginate();
+  
+  $sql_count = " SELECT count(*) ";
+  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.city, n.subregion ";
+
+  $sql_join = " FROM userdevices ud  
+                    JOIN nodes n ON n.id = ud.nodeid 
+                    JOIN mst_market mm on mm.subregion = n.subregion ";
+  $sql_where_condition = " WHERE ud.userid = $userid ";
+
+  if ($market != '') {
+    $sql_where_condition .= " AND mm.market_name = '$market' ";
+  }
+  if ($subregion != '') {
+    $sql_where_condition .= " AND n.subregion = '$subregion' ";
+  }
+
+  $sql_order = " ORDER BY ud.nodeid ";
+
+  $count_sql = $sql_count .  $sql_join . $sql_where_condition  ;  
+  $db2->query($count_sql);
+  $row = $db2->resultsetCols(); 
+
+  $resultset['total_rec'] = $row[0];
+  
+
+  $sql = $sql_select . $sql_join . $sql_where_condition . $sql_order;
+  $sql .= $pages->limit;  
+
+// echo  $sql ;
+  $db2->query($sql);
+
+  $resultset['result'] = $db2->resultset(); 
+  return $resultset;
+}
+
+
+
 /*
 *
 */
@@ -617,16 +659,13 @@ function usrfavritelistswdel($userid,$switchlistid,$switchid){
 
 function get_market_subregion_list($market_name) {
   global $db2;
-
   $sql_select = "SELECT * ";
   $sql_condition = " 
   FROM 
   mst_market
   WHERE market_name = '$market_name' order by subregion";
-  echo "$sql";
   $sql = $sql_select . $sql_condition;
   $db2->query($sql);
-  // echo $sql;
   $resultset['result'] = $db2->resultset(); 
   return $resultset;
 }

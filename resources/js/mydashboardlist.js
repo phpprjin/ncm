@@ -10,37 +10,42 @@ $(document).ready(function() {
   
   */
   
-  $("#markets").change(function() 
-  {       
-    $.ajax({
-      type: "get",
-      url: "marketregions.php",
-      data: {
-        'marketname':$("#markets").val()
-      },
-      beforeSend: function() { 
-      },
-      complete: function() { 
-      },
-      success: function(resdata) {
-        $('#subregions').html("");
-        $('#subregions').append("<option value=''>Select subregion</option>");
-        $.each(resdata, function(key, data) {
-          $('#subregions').append("<option value='" + data.subregion +
-            "'>" + data.subregion + "</option>");
-        });
-      }
-    });
-  });
+  // $("#markets").change(function() 
+  // {       
+  //   $.ajax({
+  //     type: "get",
+  //     url: "marketregions.php",
+  //     data: {
+  //       'marketname':$("#markets").val()
+  //     },
+  //     beforeSend: function() { 
+  //     },
+  //     complete: function() { 
+  //     },
+  //     success: function(resdata) {
+  //       $('#subregions').html("");
+  //       $('#subregions').append("<option value=''>Select subregion</option>");
+  //       $.each(resdata, function(key, data) {
+  //         $('#subregions').append("<option value='" + data.subregion +
+  //           "'>" + data.subregion + "</option>");
+  //       });
+  //     }
+  //   });
+  // });
 
   /* City Select box form submit */
  
-  $('.city_name_list').change(function() {
-    if ($(this).val() != '') {
-      $('#city_form').submit();
+  $('.city_name_list, .market_name_list').change(function() {
+    // alert($(this).attr('id'));
+    if ($(this).attr('id') == 'markets') {
+
+      $('#subregions').val('');
+      // alert($('#subregions').val());
     }
-    //$(location).attr("href","switchtech_devicelist.php?city_name="+$("#markets").val());    
-   // $(location).attr('href','http://example.com/Registration/Success/');
+
+    //if ($(this).val() != '') {
+      $('#city_form').submit();
+    //} 
   });  
     
   /*
@@ -159,19 +164,18 @@ $(document).ready(function() {
   });
 
   $(".map_region").click(function(marketid) {
-    //alert('inside the map region function');
     $("#marketname").val($(this).data('market')); 
-    $("#market-region").text($(this).data('market')); 
-    $(location).attr("href","switchtech_devicelist.php?city_name="+$(this).data('market'))
+    $("#market-region").text($(this).data('market').replace('R' ,'Regn').replace('M','-Market')); 
+    $(location).attr("href","switchtech_devicelist.php?markets="+$(this).data('market'))
     
   });
 
   $(".map_region").mouseenter(function(market) {    
-    $("#market-region").html('<span style="color:orange">' + $(this).data('market') + '</span>'); 
+    $("#market-region").html('<span style="color:orange">' + $(this).data('market').replace('R' ,'Regn').replace('M','-Market') + '</span>'); 
   });
 
   $(".map_region").mouseleave(function(market) {    
-    $("#market-region").text($("#marketname").val()); 
+    $("#market-region").text($("#marketname").val().replace('R' ,'Regn').replace('M','-Market')); 
   });
 
 });

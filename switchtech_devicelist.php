@@ -8,18 +8,25 @@
   check_user_authentication('2'); //switch tech type user
 
   $page_title = "Switchtech users list";
-  if (isset($_GET['city_name']) && '' != $_GET['city_name'] ) {
-    // echo
-    $city_name = $_SESSION['city_name'] = $_GET['city_name'];
-  }
-  elseif ($_SESSION['city_name']) {
-     $city_name = $_SESSION['city_name'];
-  } 
-  else {
-    //exit("Invalid access or User session expired");
-  }
-   
+  $city_name = '';
+  $marketname = '';
 
+  if (isset($_SESSION['city_name'])) {
+     $city_name = $_SESSION['city_name'];
+  }  
+  if (isset($_SESSION['marketname'])) {
+    $marketname = $_SESSION['marketname'];
+  }
+
+  if (isset($_GET['markets'])) { 
+      $marketname =  $_SESSION['marketname'] = $_GET['markets']; 
+  }
+
+  if (isset($_GET['city_name'])) { 
+      $city_name = $_SESSION['city_name'] = $_GET['city_name']; 
+  }
+  
+  
   $userid = $_SESSION['userid'];
   $succss_msg  = '';
 
@@ -155,28 +162,28 @@
 
 <map name="Map" id="Map">
     
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m3-subregion3" coords="199,37,300,135" shape="rect">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m4-subregion1" coords="302,59,335,151" shape="rect">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m3-subregion2" coords="332,178,207,136" shape="rect">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m4-subregion2" coords="334,58,370,115" shape="rect">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m4-subregion3" coords="358,173,333,117" shape="rect">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m4-subregion3" coords="358,150,379,172" shape="rect">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m4-subregion4" coords="360,116,403,106,412,117,409,130,406,140,400,145,394,147,388,152,390,161,383,156,373,148,361,148,357,141" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m5-subregion1" coords="396,103,400,93,419,77,427,67,438,65,442,76,445,94,445,103,425,109,410,110" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m5-subregion2" coords="441,64,463,31,474,29,487,51,478,61,474,68,468,73,467,88,473,93,461,102,448,107" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m5-subregion3" coords="410,111,431,105,455,105,444,115,446,123,442,132,425,128,412,130" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m6-subregion1" coords="335,173,380,173,431,163,440,161,442,172,434,184,426,192,420,198,412,209,405,218,376,192,351,194,334,192,334,192" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m6-subregion2" coords="383,159,412,130,429,129,444,138,442,158,410,166,381,170" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m6-subregion3" coords="334,196,376,194,404,220,400,233,370,237,353,235,345,224,334,226" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m6-subregion4" coords="353,236,400,235,421,271,420,293,407,285,395,271,392,256,380,246,366,250,355,243" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m1-subregion1" coords="54,15,69,15,116,26,123,54,120,69,101,67,94,98,32,84,32,78" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m1-subregion2" coords="33,84,115,106,111,120,109,132,103,157,89,154,95,144,95,132,81,132,69,132,75,140,95,179,95,203,69,199,41,173,31,120,26,103" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m3-subregion1" coords="116,25,200,38,196,125,200,134,211,140,208,171,151,167,151,153,110,141,116,104,94,96,101,66,123,70,123,52,116,39" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m2-subregion1" coords="194,225,201,173,152,167,149,152,121,146,110,141,105,159,94,160,94,147,89,135,72,134,79,150,83,160,95,179,99,188,95,195,91,207,104,215,122,227,146,229" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m2-subregion2" coords="249,295,249,275,281,255,297,256,328,259,335,243,354,242,347,227,337,227,331,220,307,215,283,219,272,207,261,209,241,206,227,201,226,181,202,179,196,224,169,229,176,239,183,254,196,260,205,250,220,267,225,276,231,289,238,295,243,297" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m2-subregion3" coords="334,220,333,177,275,179,227,178,228,202,251,208,271,208,286,219,308,215,322,216" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m1-subregion3" coords="55,234,78,228,98,237,99,267,100,279,112,284,129,300,123,303,114,297,93,282,82,281,73,282,74,291,61,296,31,300,44,283,59,285,46,269,38,251,51,246" shape="poly">
-    <area target="" alt="" title="" href="#" class="map_region" data-market="m1-subregion4" coords="132,259,169,267,204,294,191,308,159,288,144,277,131,274" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R3M3" coords="199,37,300,135" shape="rect">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R4M1" coords="302,59,335,151" shape="rect">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R3M2" coords="332,178,207,136" shape="rect">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R4M2" coords="334,58,370,115" shape="rect">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R4M3" coords="358,173,333,117" shape="rect">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R4M3" coords="358,150,379,172" shape="rect">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R4M4" coords="360,116,403,106,412,117,409,130,406,140,400,145,394,147,388,152,390,161,383,156,373,148,361,148,357,141" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R5M1" coords="396,103,400,93,419,77,427,67,438,65,442,76,445,94,445,103,425,109,410,110" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R5M2" coords="441,64,463,31,474,29,487,51,478,61,474,68,468,73,467,88,473,93,461,102,448,107" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R5M3" coords="410,111,431,105,455,105,444,115,446,123,442,132,425,128,412,130" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R6M1" coords="335,173,380,173,431,163,440,161,442,172,434,184,426,192,420,198,412,209,405,218,376,192,351,194,334,192,334,192" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R6M2" coords="383,159,412,130,429,129,444,138,442,158,410,166,381,170" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R6M3" coords="334,196,376,194,404,220,400,233,370,237,353,235,345,224,334,226" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R6M4" coords="353,236,400,235,421,271,420,293,407,285,395,271,392,256,380,246,366,250,355,243" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R1M1" coords="54,15,69,15,116,26,123,54,120,69,101,67,94,98,32,84,32,78" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R1M2" coords="33,84,115,106,111,120,109,132,103,157,89,154,95,144,95,132,81,132,69,132,75,140,95,179,95,203,69,199,41,173,31,120,26,103" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R3M1" coords="116,25,200,38,196,125,200,134,211,140,208,171,151,167,151,153,110,141,116,104,94,96,101,66,123,70,123,52,116,39" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R2M1" coords="194,225,201,173,152,167,149,152,121,146,110,141,105,159,94,160,94,147,89,135,72,134,79,150,83,160,95,179,99,188,95,195,91,207,104,215,122,227,146,229" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R2M2" coords="249,295,249,275,281,255,297,256,328,259,335,243,354,242,347,227,337,227,331,220,307,215,283,219,272,207,261,209,241,206,227,201,226,181,202,179,196,224,169,229,176,239,183,254,196,260,205,250,220,267,225,276,231,289,238,295,243,297" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R2M3" coords="334,220,333,177,275,179,227,178,228,202,251,208,271,208,286,219,308,215,322,216" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R1M3" coords="55,234,78,228,98,237,99,267,100,279,112,284,129,300,123,303,114,297,93,282,82,281,73,282,74,291,61,296,31,300,44,283,59,285,46,269,38,251,51,246" shape="poly">
+    <area target="" alt="" title="" href="#" class="map_region" data-market="R1M4" coords="132,259,169,267,204,294,191,308,159,288,144,277,131,274" shape="poly">
 </map>          
 
               </div>
@@ -184,27 +191,33 @@
 
           <div class="col-md-6 panel-primary pull-right">
             <div class="panel-heading">
+            <input type="hidden" name="marketname" id="marketname" value="<?php echo $city_name?>">
             <form id="city_form" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="get">
-              <span>Devices List : <span id="market-region"><?php echo $city_name; ?></span></span>            
+              <?php
+              $str_marketname = str_replace(array('R' , 'M' ),array('Regn','-Market' ), $marketname );
+              ?>
+              <span>Devices List : <span id="market-region"><?php echo $str_marketname . ( ($city_name != '') ? " [" . $city_name . ']': '' ); ?></span></span>            
                 <span class="pull-right">
 
                   <span style="cursor: pointer;" onclick="showMap()"> Show Map&nbsp;  <i class="fa fa-map-o" title="Show Map" ></i>&nbsp;</span>
-                  <input type="hidden" name="marketname" id="marketname" value="<?php echo $city_name?>">
+                  
                   <select id="markets"  class="market_name_list" style="color:darkblue" name="markets">
-                    <option value=''>Select Market / Region </option>
+                    <option value=''>Select Region-Market </option>
                     <?php
                     //if (isset($_SESSION['marketname'])) {
                        
                       $market_list = get_market_list(); 
                       if ( $market_list['result'] ) {
                         foreach ($market_list['result'] as $key => $value) {
-                          $seleced = ($_SESSION['marketname'] == $value['market_name']) ? "selected" : "";
-                          echo "<option " . $seleced . " value='" . $value['market_name'] . "'>" . $value['market_name'] ."</option>";
+                          $seleced = ($marketname == $value['market_name']) ? "selected" : "";
+                          $str_marketname = str_replace(array('R' , 'M' ),array('Regn','-Market' ), $value['market_name'] );
+                          echo "<option " . $seleced . " value='" . $value['market_name'] . "'>" . $str_marketname ."</option>";
                         }
                       }
                     //}
                     ?>
                   </select>  
+                   
                    <select id="subregions" name="city_name" class="city_name_list" style="color:darkblue" name="subregions">
                     <option value=''>Select subregion</option>
                     <?php
