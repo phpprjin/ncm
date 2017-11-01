@@ -1,44 +1,28 @@
-/*
-SQLyog Community v9.63 
-MySQL - 5.5.5-10.1.21-MariaDB : Database - ncm
-*********************************************************************
-*/
-
-/*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`ncm` /*!40100 DEFAULT CHARACTER SET latin1 */;
-
 /*Table structure for table `active_guests` */
 
 DROP TABLE IF EXISTS `active_guests`;
 
 CREATE TABLE `active_guests` (
-  `ip` varchar(15) NOT NULL,
-  `timestamp` int(11) unsigned NOT NULL,
+  `ip` VARCHAR(15) NOT NULL,
+  `timestamp` INT(11) UNSIGNED NOT NULL,
   PRIMARY KEY (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 /*Data for the table `active_guests` */
 
-insert  into `active_guests`(`ip`,`timestamp`) values ('127.0.0.1',1503691369);
+INSERT  INTO `active_guests`(`ip`,`timestamp`) VALUES ('127.0.0.1',1503691369);
 
 /*Table structure for table `active_users` */
 
 DROP TABLE IF EXISTS `active_users`;
 
 CREATE TABLE `active_users` (
-  `username` varchar(30) NOT NULL,
-  `timestamp` int(11) unsigned NOT NULL,
-  `userid` int(11) NOT NULL,
-  `hchkstatus` int(11) NOT NULL,
+  `username` VARCHAR(30) NOT NULL,
+  `timestamp` INT(11) UNSIGNED NOT NULL,
+  `userid` INT(11) NOT NULL,
+  `hchkstatus` INT(11) NOT NULL,
   PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 /*Data for the table `active_users` */
 
@@ -47,42 +31,42 @@ CREATE TABLE `active_users` (
 DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE `categories` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `categoryName` varchar(255) DEFAULT '0',
-  `status` int(10) DEFAULT NULL,
+  `id` INT(10) NOT NULL AUTO_INCREMENT,
+  `categoryName` VARCHAR(255) DEFAULT '0',
+  `status` INT(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=INNODB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`id`,`categoryName`,`status`) values (1,'Switches',1),(2,'Routers',1),(4,'LoadBalancers',1),(5,'WANOptimizers',1),(8,'Firewalls',1);
+INSERT  INTO `categories`(`id`,`categoryName`,`status`) VALUES (1,'Switches',1),(2,'Routers',1),(4,'LoadBalancers',1),(5,'WANOptimizers',1),(8,'Firewalls',1);
 
 /*Table structure for table `cmdcattbl` */
 
 DROP TABLE IF EXISTS `cmdcattbl`;
 
 CREATE TABLE `cmdcattbl` (
-  `configCmdId` int(10) DEFAULT NULL,
-  `nodeCatId` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `configCmdId` INT(10) DEFAULT NULL,
+  `nodeCatId` INT(10) DEFAULT NULL
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
 
 /*Data for the table `cmdcattbl` */
 
-insert  into `cmdcattbl`(`configCmdId`,`nodeCatId`) values (161,1),(161,2),(161,4),(161,5),(161,8),(163,1),(163,2),(164,1),(164,2),(165,2);
+INSERT  INTO `cmdcattbl`(`configCmdId`,`nodeCatId`) VALUES (161,1),(161,2),(161,4),(161,5),(161,8),(163,1),(163,2),(164,1),(164,2),(165,2);
 
 /*Table structure for table `compliancepolelem` */
 
 DROP TABLE IF EXISTS `compliancepolelem`;
 
 CREATE TABLE `compliancepolelem` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `elementName` varchar(255) NOT NULL,
-  `elementDesc` varchar(255) NOT NULL,
-  `singleParam1` int(10) DEFAULT NULL COMMENT '1, equals. 2, contains',
-  `singleLine1` varchar(255) DEFAULT NULL,
-  `status` int(10) DEFAULT '1',
+  `id` INT(10) NOT NULL AUTO_INCREMENT,
+  `elementName` VARCHAR(255) NOT NULL,
+  `elementDesc` VARCHAR(255) NOT NULL,
+  `singleParam1` INT(10) DEFAULT NULL COMMENT '1, equals. 2, contains',
+  `singleLine1` VARCHAR(255) DEFAULT NULL,
+  `status` INT(10) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MYISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `compliancepolelem` */
 
@@ -91,9 +75,9 @@ CREATE TABLE `compliancepolelem` (
 DROP TABLE IF EXISTS `compliancepolelemtbl`;
 
 CREATE TABLE `compliancepolelemtbl` (
-  `polId` int(10) DEFAULT NULL,
-  `elemId` int(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `polId` INT(10) DEFAULT NULL,
+  `elemId` INT(10) DEFAULT NULL
+) ENGINE=MYISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `compliancepolelemtbl` */
 
@@ -102,12 +86,12 @@ CREATE TABLE `compliancepolelemtbl` (
 DROP TABLE IF EXISTS `compliancepolicies`;
 
 CREATE TABLE `compliancepolicies` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `policyName` varchar(255) DEFAULT NULL,
-  `policyDesc` varchar(255) DEFAULT NULL,
-  `status` int(11) DEFAULT '1',
+  `id` INT(10) NOT NULL AUTO_INCREMENT,
+  `policyName` VARCHAR(255) DEFAULT NULL,
+  `policyDesc` VARCHAR(255) DEFAULT NULL,
+  `status` INT(11) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MYISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `compliancepolicies` */
 
@@ -116,9 +100,9 @@ CREATE TABLE `compliancepolicies` (
 DROP TABLE IF EXISTS `compliancereportpoltbl`;
 
 CREATE TABLE `compliancereportpoltbl` (
-  `reportId` int(10) DEFAULT NULL,
-  `polId` int(10) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
+  `reportId` INT(10) DEFAULT NULL,
+  `polId` INT(10) DEFAULT NULL
+) ENGINE=MYISAM DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
 
 /*Data for the table `compliancereportpoltbl` */
 
@@ -127,12 +111,12 @@ CREATE TABLE `compliancereportpoltbl` (
 DROP TABLE IF EXISTS `compliancereports`;
 
 CREATE TABLE `compliancereports` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `reportsName` varchar(255) DEFAULT NULL,
-  `reportsDesc` varchar(255) DEFAULT NULL,
-  `status` int(10) DEFAULT '1',
+  `id` INT(10) NOT NULL AUTO_INCREMENT,
+  `reportsName` VARCHAR(255) DEFAULT NULL,
+  `reportsDesc` VARCHAR(255) DEFAULT NULL,
+  `status` INT(10) DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MYISAM DEFAULT CHARSET=latin1;
 
 /*Data for the table `compliancereports` */
 

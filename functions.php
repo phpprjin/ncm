@@ -437,18 +437,20 @@ function get_switchlist_for_market_subregion($userid, $market, $subregion){
   $pages->paginate();
   
   $sql_count = " SELECT count(*) ";
-  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.city, n.subregion ";
+  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.city, n.market as 'subregion' ";
 
   $sql_join = " FROM userdevices ud  
-                    JOIN nodes n ON n.id = ud.nodeid 
-                    JOIN mst_market mm on mm.subregion = n.subregion ";
-  $sql_where_condition = " WHERE ud.userid = $userid ";
+                    JOIN nodes n ON n.id = ud.nodeid ";
+
+                   // JOIN mst_market mm on mm.subregion = n.subregion ";
+
+  $sql_where_condition = " WHERE ud.userid = $userid and n.switch_name !='' ";
 
   if ($market != '') {
-    $sql_where_condition .= " AND mm.market_name = '$market' ";
+    $sql_where_condition .= " AND n.market  = '$market' ";
   }
   if ($subregion != '') {
-    $sql_where_condition .= " AND n.subregion = '$subregion' ";
+    $sql_where_condition .= " AND n.submarket = '$subregion' ";
   }
 
   $sql_order = " ORDER BY ud.nodeid ";
@@ -481,7 +483,7 @@ function getSWroutersDetails($deviceid, $userid) {
   $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_Location, n2.connPort, n2.model, n2.systemname ";
   $sql_condition = " FROM nodes n
                     JOIN userdevices ud ON ud.nodeid = n.id
-                    JOIN connectingdevices cd ON cd.swnodeid = n.id
+                    JOIN connectingdevices cd ON cd.swname = n.switch_name
                     JOIN nodes n2 ON cd.swrtrconnodeid = n2.id  
                     WHERE n.id = $deviceid AND ud.userid = $userid  ";
 
@@ -659,11 +661,12 @@ function usrfavritelistswdel($userid,$switchlistid,$switchid){
 
 function get_market_subregion_list($market_name) {
   global $db2;
-  $sql_select = "SELECT * ";
-  $sql_condition = " 
-  FROM 
-  mst_market
-  WHERE market_name = '$market_name' order by subregion";
+  $sql_select = "SELECT submarket as subregion ";
+  $sql_condition = " FROM 
+                     nodes
+                     WHERE market = '$market_name'
+                     group by subregion
+                     order by submarket ";
   $sql = $sql_select . $sql_condition;
   $db2->query($sql);
   $resultset['result'] = $db2->resultset(); 
@@ -735,9 +738,10 @@ function updateuserpassword($emailid,$password) {
 function get_market_list() {
   global $db2;
 
-  $sql_select = "SELECT * ";
-  $sql_condition = " FROM mst_market
-                    GROUP BY market_name"; 
+  $sql_select = "SELECT market as market_name ";
+  $sql_condition = " FROM nodes
+                      where market != ''
+                      GROUP BY market "; 
   $sql = $sql_select . $sql_condition;
   $db2->query($sql);
   // echo $sql;
