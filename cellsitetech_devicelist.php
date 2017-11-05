@@ -30,7 +30,7 @@ $pages->paginate();
 ?>
 <!DOCTYPE html>
 <html>
-   <?php include("headHtml.php");  ?>
+   <?php include("includes.php");  ?>
      <body class="hold-transition skin-blue sidebar-mini ownfont">
         <!-- Modal HTML -->
         
@@ -43,7 +43,7 @@ $pages->paginate();
         </div>
 
         <div class="wrapper">
-            <?php include ('headerNavBar.php'); ?> 
+            <?php include ('menu.php'); ?> 
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content">
@@ -123,7 +123,7 @@ $pages->paginate();
                                       <td width="10%"><?php echo $device['deviceIpAddr']; ?></td>
                                       <td width="10%"><?php echo $device['status'] == 1 ?  'Reachable' : 'Not Reachable'; ?></td>
                                       <td width="10%"><?php echo $device['investigationstate']; ?></td>
-                                      <td width="15%"><?php echo $device['deviceseries']; ?> </td> 
+                                      <td width="15%"><?php echo $device['model']; ?> </td> 
                                       <td  width="8%"><?php echo $device['nodeVersion']; ?></td>
                                       <td >Up Since <?php echo date('m/d/Y', strtotime($device['upsince'])); ?></th>
                                     </tr>                                             
@@ -172,7 +172,6 @@ $pages->paginate();
         <!-- ./wrapper -->
 
         <?php include ('footer.php'); ?> 
-        <?php include ('footerFiles.php'); ?>
         <script src="resources/js/devices.js?t=".<?php echo date('his'); ?>></script>
     </body>
 </html>

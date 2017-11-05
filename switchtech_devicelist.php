@@ -50,10 +50,10 @@
   ?>
   <!DOCTYPE html>
   <html>
-     <?php include("headHtml.php");  ?>
+     <?php include("includes.php");  ?>
       <body class="hold-transition skin-blue sidebar-mini ownfont">
         <div class="content">
-          <?php include ('headerNavBar.php'); ?>        
+          <?php include ('menu.php'); ?>        
           <div class="col-md-6 panel-info" style="height:500px">
             <div class="panel-heading">My List</div>
               <div class="panel-body">
@@ -251,8 +251,7 @@
           </div>
         </div>
     <input type="hidden" id="hidd_userid" value="<?php echo $_SESSION['userid'] ?>">
-        <?php include ('footer.php'); ?> 
-        <?php include ('footerFiles.php'); ?>
+        <?php include ('footer.php'); ?>  
         <script src="resources/js/mydashboardlist.js?t=<?php echo date('his'); ?>"></script>
       </body>
   </html>     

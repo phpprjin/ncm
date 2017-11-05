@@ -39,12 +39,12 @@ $pages->paginate();
 ?>
 <!DOCTYPE html>
 <html>
-   <?php include("headHtml.php");  ?>
+   <?php include("includes.php");  ?>
      <body class="hold-transition skin-blue sidebar-mini ownfont">
         <!-- Modal HTML -->
        
         <div class="wrapper">
-            <?php include ('headerNavBar.php'); ?> 
+            <?php include ('menu.php'); ?> 
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content">
@@ -180,8 +180,7 @@ $pages->paginate();
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
-        <?php include ('footer.php'); ?> 
-        <?php include ('footerFiles.php'); ?>
+        <?php include ('footer.php'); ?>  
         <script src="resources/js/mylist_devices.js?t=".<?php echo date('his'); ?>></script>
     </body>
 </html>
