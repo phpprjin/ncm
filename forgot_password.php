@@ -13,8 +13,8 @@
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#topFixedNavbar1" aria-expanded="false"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></button>
 				<a class="navbar-brand" href="index.html">
 				<ul class="nav navbar-nav navbar-left">
-					<li><img src="resources/img/ncmlogo.png" width="100" height="22" alt="NCM Logo"/></li>
-					<li><img src="resources/img/ncmlogo.png" width="100" height="31" alt="NCM Logo"/></li>
+					<li><img src="resources/img/ncmlogo.png" width="100" height="22" alt="ncm Logo"/></li>
+					<li><img src="resources/img/ncmlogo.png" width="100" height="31" alt="ncm Logo"/></li>
 				</ul>	
 				</a>
 			</div>

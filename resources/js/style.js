@@ -27,4 +27,3 @@ $('.message a').click(function(){
 function myFunction() {
     document.getElementById("username").innerHTML = "! Username is required.";
 }
-

@@ -39,7 +39,8 @@ include 'functions.php';
                                 
                                 ); 
                        // $url_send ="http://localhost/ncm/sshpost.php";  
-        $url_send ="http://localhost/ncm/healthcheck/1"; 
+        //$url_send ="http://localhost/ncm/healthcheck/xos/1";
+          $url_send ="http://localhost:8080/healthcheck/xos/2";		
             $deviceid = $_GET['deviceid'];              
             $url_final = $url_send.'?deviceid='.$deviceid;            
                         $output = json_decode(sendPostData($url_final),true);
@@ -57,7 +58,7 @@ $display ="<span style='color:".$color."'>".$output['show_alarm_outstanding']['c
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=cardhardware"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"></img></a><?php $color = ($output['show_card_hardware_grep_prog']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['show_card_hardware_grep_prog']['upto_date_count'].'</span>'; echo $display; ?></td>
                                               <td><b>Card Information </b> </td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=cardinformation"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo 'Locked Account'.$output['show_card_info_grep_card_lock']['locked_count'].'Unlocked Account'.$output['show_card_info_grep_card_lock']['unlocked_count'];?></td>
+                                              <td> <a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=cardinformation"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php if (isset($output['show_card_info_grep_card_lock']['locked_count'])) echo 'Locked Account : '.$output['show_card_info_grep_card_lock']['locked_count']; if (isset($output['show_card_info_grep_card_lock']['unlocked_count'])) echo 'Unlocked Account : '.$output['show_card_info_grep_card_lock']['unlocked_count'];?></td>
                                             </tr>
                                             <tr>                  
                                               <td><b>Card Table</b></td>
@@ -73,10 +74,10 @@ echo $display; ?></td>
                                             <tr>                  
                                               <td><b>Crash List</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=crashlist"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php  
-echo $output['totalcrashes']; ?></td>
+echo $output['totalcrashes']['Total_crashes']; ?></td>
                                               <td><b>Diameter Peers</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=diameterpeers"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> 
-<?php echo $output['show_diameter_peers']; ?></td>
+<?php echo $output['show_diameter_peers']['Total_peers']; ?></td>
                                               <td><b>HD RAID</b></td>                                              
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=hdraid"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_hd_raid_grep_degrad']; ?></td>
                                             </tr>
@@ -92,7 +93,7 @@ echo $display; ?></td>
                                             </tr>
                                             <tr>                  
                                               <td><b>Services</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=services"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=hdraid"><?php echo 'Context Id :'.$output['show_service_all']['count_unique_context_id'].'Service Id : '.$output['show_service_all']['count_unique_service_id'];?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=services"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php if (isset($output['show_service_all']['count_unique_context_id'])) echo 'Context Id :'.$output['show_service_all']['count_unique_context_id']; if (isset($output['show_service_all']['count_unique_service_id'])) echo 'Service Id : '.$output['show_service_all']['count_unique_service_id'];?></td>
                                               <td><b>Session Recovery Status </b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=sessionrecoverystatus"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_session_recovery_status_verbose']['overall_status']; ?></td> 
 </td>
@@ -103,9 +104,9 @@ echo $display; ?></td>
                                               <td><b>SRP Information </b></td>                                              
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=srpinfo"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_srp_info']['chassis_state']; ?></td>
                                               <td><b>SRP Information chassis State </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=srpinfochasstate"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_system_uptime'];?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=srpinfochasstate"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_srp_info_grep_chassis_state'];?></td>
                                               <td><b>System Uptime </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=systemuptime"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_srp_info_grep_chassis_state'];?>                                        
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=systemuptime"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_system_uptime'];?>                                        
                                             </tr>                  
                                             <tr>   
                                               <td><b>Task Resource</b></td>                                              
@@ -113,7 +114,7 @@ echo $display; ?></td>
 $display ="<span style='color:".$color."'>".$output['show_task_resource_grep_v_good']['count'].'</span>';
 echo $display; ?></td>
                                               <td><b>Task Resource Diamproxy</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=diamproxy"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['count'];?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=diamproxy"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['diamproxy']['count'];?></td>
                                               <td><b>Task Resources Session Message</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=taskressessmsg"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php
 $color = ($output['show_task_resources_grep_sessmg']['status'] == 'pass') ? 'green':'red';  

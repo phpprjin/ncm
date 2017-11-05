@@ -34,9 +34,9 @@ include 'functions.php';
                                 
                                 ); 
                        // $url_send ="http://localhost/ncm/sshpost.php";          
-        $url_send ="http://localhost:8080/healthcheck/1x"; 
+            $url_send ="http://localhost:8080/healthcheck/ios/1"; 
             $deviceid = $_GET['deviceid'];              
-            $url_final = $url_send.'?deviceid='.$deviceid;            
+            $url_final = $url_send.'?deviceid='.$deviceid;           
                         $output = json_decode(sendPostData($url_final),true);
                         
                         ?>
@@ -86,28 +86,31 @@ echo $display; ?></td>
                                             </tr>
                                             <tr>                  
                                               <td><b>2000 Byte Ping</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=twothsndbyteping"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['twothsndbyteping']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['twothsndbyteping']['message'].'</span>';
-echo $display; ?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=twothsndbyteping"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['twothsndbyteping'];?></td>
                                               <td><b>BFD Sessions</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bfdsession"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['bfdsession']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['bfdsession']['message'].'</span>';
 echo $display; ?></td>
-                                              <td><b>Log Entries</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=logentries"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo 'Buffer Logging :'.$output['logentries']['buffer_logging']." Trap logging :".$output['logentries']['trap_logging']; ?></td>
+											  <td><b>Log Entries</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=logentries"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php if (isset($output['logentries']['buffer_logging']['R'])){
+													$color = ($output['logentries']['buffer_logging']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>"." Buffer Logging : ".$output['logentries']['buffer_logging']['value'].'</span>';
+											  echo $display;}?> 
+											  <?php if (isset($output['logentries']['trap_logging']['R'])) {
+												  $color = ($output['logentries']['trap_logging']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>"."<br> Trap Logging : ".$output['logentries']['trap_logging']['value'].'</span>';
+											  echo $display;}; ?></td>
                                             </tr>
                                             <tr>                  
                                               <td><b>5000 Byte Ping</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=fivethsndbyteping"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['fivethsndbyteping']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['fivethsndbyteping']['message'].'</span>';
-echo $display; ?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=fivethsndbyteping"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['fivethsndbyteping']; ?></td>
                                               <td><b>Interface State</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=interfacestates"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['interfacestates']['R'] == 1) ? 'green':'red';  
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=interfacestates"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['interfacestates']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['interfacestates']['message'].'</span>';
 echo $display; ?> 
 </td>
                                               <td><b>Xconnect</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=xconnect"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['xconnect']['R'] == 1) ? 'green':'red';  
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=xconnect"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['xconnect']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['xconnect']['count'].'</span>';
 echo $display; ?></td>
                                             </tr>
@@ -134,7 +137,7 @@ echo $display; ?></td>
                                               <td><b>BGPV6Neighbors</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvsixneighbors"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php
 $color = ($output['bgpvsixneighbors']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['bgpvsixneighbors']['neighbours'].'</span>';
+$display ="<span style='color:".$color."'>".$output['bgpvsixneighbours']['neighbours'].'</span>';
 echo $display; ?></td>
                                               <td><b>BGPV6Routes</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvsixroutes"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php

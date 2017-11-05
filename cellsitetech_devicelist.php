@@ -97,15 +97,15 @@ $pages->paginate();
                                ?>  
                                <!-- Table Header section -->                                       
                                 <table class="table table_header">
-                                  <thead> 
+                                  <thead style="background-color:pink;"> 
                                     <tr>
-                                      <th width="10%"> Location</th>      
-                                      <th width="20%"> Device Name</th>
-                                      <th width="10%"> IP Address</th>
+                                     <th width="10%">Severity</th>      
+                                      <th width="20%">Device Name</th>
+                                      <th width="10%">IP Address</th>
                                       <th width="10%">Reachable</th>
                                       <th width="10%">Operational</th>
                                       <th width="15%">Device Series</th> 
-                                      <th  width="8%">S/W Version</th>
+                                      <th  width="8%">Version</th>
                                       <th >Up Since</th>
                                     </tr>                                             
                                   </thead>  
@@ -118,12 +118,12 @@ $pages->paginate();
                                 <table style=" <?php echo ($k%2==0) ? 'background-color: rgb(236,245,245)':'background-color:rgb(245,245,245)'; ?>" class="table device_details collapsed"  data-userid="<?php echo $userid; ?>"  data-deviceid="<?php echo $device['id']; ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $k+1 ?>">
                                   <tbody>
                                     <tr>
-                                      <td width="10%"> <?php echo $device['custom_Location']; ?></td>
+                                  <td width="10%"> <?php echo $device['severity']; ?></td>
                                       <td width="20%"> <?php echo $device['deviceName'];  ?></td>
                                       <td width="10%"><?php echo $device['deviceIpAddr']; ?></td>
                                       <td width="10%"><?php echo $device['status'] == 1 ?  'Reachable' : 'Not Reachable'; ?></td>
                                       <td width="10%"><?php echo $device['investigationstate']; ?></td>
-                                      <td width="15%"><?php echo $device['model']; ?> </td> 
+                                      <td width="15%"><?php echo $device['deviceseries']; ?> </td> 
                                       <td  width="8%"><?php echo $device['nodeVersion']; ?></td>
                                       <td >Up Since <?php echo date('m/d/Y', strtotime($device['upsince'])); ?></th>
                                     </tr>                                             
@@ -163,16 +163,15 @@ $pages->paginate();
                   </div> 
                 </section> <!-- /.content -->
               </div>
-            <!-- /.content-wrapper -->
-            <footer class="main-footer">
-               Title 2017
-            </footer>
+            <!-- /.content-wrapper --> 
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
             immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
+
+        <?php include ('footer.php'); ?> 
         <?php include ('footerFiles.php'); ?>
         <script src="resources/js/devices.js?t=".<?php echo date('his'); ?>></script>
     </body>

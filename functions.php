@@ -132,7 +132,7 @@ function get_device_list_from_nodes($user_id) {
 	$pages->paginate();
 	if ($user_id > 0) {
 		$sql_count = "SELECT COUNT(*) ";
-		$sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion ";
+		$sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, n.severity, n.deviceseries ";
 				
 		$sql_condition = " FROM userdevices ud
 				 JOIN nodes n on ud.nodeid = n.id 
@@ -341,9 +341,14 @@ function delete_alluser() {
 * Api call
 */
 
-function sendPostData ($url, $post) { 
+/*
+* Api call
+*/
+
+function sendPostData ($url) { 
 // print_r($data_string);
-	  $ch = curl_init($url);
+	/* Below is for the POST method
+    	$ch = curl_init($url);
 	  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);                                                                  
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);     
@@ -354,6 +359,29 @@ function sendPostData ($url, $post) {
 	  $result = curl_exec($ch);
 	  curl_close($ch);  
 	  return $result;
+	  
+	  Ends */
+	  
+	  // Curl GET methods begins 
+	//echo "Inside the sendpostdata method value of url is $url";  
+	$ch = curl_init();   
+    curl_setopt($ch, CURLOPT_POST, 0);
+	curl_setopt($ch, CURLOPT_HTTPGET, 1);
+    curl_setopt($ch, CURLOPT_URL,$url);
+    //curl_setopt($ch, CURLOPT_POSTFIELDS,$query);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $result = curl_exec ($ch);
+    curl_close ($ch);
+
+    //error handling for cURL
+    if ($reply === false) {
+       // throw new Exception('Curl error: ' . curl_error($crl));
+       print_r('Curl error: ' . curl_error($crl));
+    };
+    curl_close($crl);
+	return $result;
+    //cURL ends	   
+	// Curl GET method ends
 };
 
 function getDetailViewData($userid, $deviceid) {
@@ -385,9 +413,9 @@ function getSwitchDevicesList($userid){
 
   global $db2;
 
-  $sql = "SELECT n.id, n.deviceName, n.custom_Location, n.city  FROM userdevices ud  
+  $sql = "SELECT n.id, n.deviceName, n.custom_Location, n.submarket  FROM userdevices ud  
           JOIN nodes n ON n.id = ud.nodeid
-          WHERE ud.userid = $userid AND n.city != ''
+          WHERE ud.userid = $userid AND n.submarket != ''
           ORDER BY ud.nodeid
           ";
   $db2->query($sql);
@@ -406,11 +434,11 @@ function getSwitchDevicesListByCity($userid, $city){
 
   //$pages->paginate();
   $sql_count = " SELECT count(*) ";
-  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.city, n.subregion ";
+  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.submarket ";
 
   $sql_condition = " FROM userdevices ud  
                     JOIN nodes n ON n.id = ud.nodeid
-                    WHERE ud.userid = $userid AND n.subregion = '$city' ";
+                    WHERE ud.userid = $userid AND n.submarket = '$city' ";
   $sql_order = " ORDER BY ud.nodeid ";
 
   $count_sql = $sql_count . $sql_condition ;  
@@ -437,7 +465,7 @@ function get_switchlist_for_market_subregion($userid, $market, $subregion){
   $pages->paginate();
   
   $sql_count = " SELECT count(*) ";
-  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.city, n.market as 'subregion' ";
+  $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.submarket, n.market as 'subregion' ";
 
   $sql_join = " FROM userdevices ud  
                     JOIN nodes n ON n.id = ud.nodeid ";
@@ -502,11 +530,11 @@ function getSEuserCityList($userid)  {
 
   global $db2;
 
-  $sql = "SELECT  n.city  FROM userdevices ud  
+  $sql = "SELECT  n.submarket  FROM userdevices ud  
           JOIN nodes n ON n.id = ud.nodeid
-          WHERE ud.userid = $userid AND n.city != ''
-          group BY n.city 
-          ORDER BY n.city ";
+          WHERE ud.userid = $userid AND n.submarket != ''
+          group BY n.submarket 
+          ORDER BY n.submarket ";
   $db2->query($sql);
 
   $resultset['result'] = $db2->resultset(); 
@@ -612,7 +640,7 @@ function user_mylist_devieslist($userid,$listid){
   $pages->paginate();
   if ($userid > 0) {
     $sql_count = "SELECT COUNT(*) ";
-    $sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, ud.listname ";
+    $sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, ud.listname, n.severity, n.deviceseries ";
         
     $sql_condition = " FROM userdevices ud
          JOIN nodes n on ud.nodeid = n.id 
@@ -697,14 +725,14 @@ function sendmail($mailbody,$pwrurl) {
   $email="enduser@gmail.com"; // Recipients email ID
   $name="enduser"; // Recipient's name
   $mail->From = $webmaster_email;
-  $mail->FromName = "NCM Administrator";
+  $mail->FromName = "ncm Administrator";
   $mail->AddAddress($email,$name);
-  $mail->AddReplyTo($webmaster_email,"NCM administrator@gmail.com");
+  $mail->AddReplyTo($webmaster_email,"ncm administrator@gmail.com");
   $mail->WordWrap = 50; // set word wrap
   //$mail->AddAttachment("/var/tmp/file.tar.gz"); // attachment
   //$mail->AddAttachment("/tmp/image.jpg", "new.jpg"); // attachment
   $mail->IsHTML(true); // send as HTML
-  $mail->Subject = "NCM Password Reset";
+  $mail->Subject = "ncm Password Reset";
   //$mail->Body = "Hi,
   //This is the HTML BODY "; //HTML Body
   $mail->Body = file_get_contents('emailcontent.php').$mailbody.$pwrurl;

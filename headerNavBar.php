@@ -1,7 +1,7 @@
 <header class="main-header">
   <div class="nav">
     <div class="pull-left box"><a class="navbar-brand" href="#" >
-        <img src="resources/img/ncmlogo.png"  height = "38px"  alt=" NCM Logo"/>
+        <img src="resources/img/ncmlogo.png"  height = "38px"  alt=" ncm Logo"/>
       </a>
     </div>
     <div class="pull-right box">

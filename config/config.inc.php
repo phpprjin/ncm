@@ -17,14 +17,25 @@ $config_app_basedir = $_SERVER['DOCUMENT_ROOT'] . "/ncm/" ;
 define('WEB_DIR', $_SERVER['DOCUMENT_ROOT'] . "/ncm/");
 
 /* DATABASE DEFINES */
+/* Remote server connection */
+// Remove the space between *,/ to uncomment below commented line
+/*       ----------       * / 
+define('DB_HOST', 'http://www.remote.mysql.com/ncm_database');
+define('DB_PORT', '3306'); //Default Port no 3306
+define('DB_NAME', 'remotedatabase');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
+/*        -------        */
+
+/* Local server database connection */
+// Add a space between *,/ to comment out the below linenes
+/*        -----        */
 define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
-define('DB_NAME', 'ncm');
+define('DB_NAME', 'ncm_sri');
 define('DB_USER', 'root');
-define('DB_PASSWORD', 'root');
-
-
-
+define('DB_PASSWORD', '');
+/*       ------         */
 
 /**
  * Database Table Constants - these constants

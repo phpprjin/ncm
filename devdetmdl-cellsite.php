@@ -2,58 +2,74 @@
         $command  = $_GET['commandname'];
         switch($command) {
             
-            case 'showprocessescpu':
-          $url='http://localhost:8080/healthcheck/1/show-process-cpu';
+          
 
-          break;
+          
             case 'freememory':
-          $url='http://localhost:8080/healthcheck/1/show-memory-statistics';
+          $url='http://localhost:8080/healthcheck/ios/1/8';
           break;
             case 'buffers':
-          $url='http://localhost:8080/healthcheck/1/sho-buffers';
+          $url='http://localhost:8080/healthcheck/ios/1/5';
           break;             
             case 'showversion':
-          $url='http://localhost:8080/healthcheck/1/show-version';
+          $url='http://localhost:8080/healthcheck/ios/1/2';
           break;
-            case 'showversioniconfig':
-          $url='http://localhost:8080/healthcheck/1/show-version-i-config';
+            case 'configregister':
+          $url='http://localhost:8080/healthcheck/ios/1/3';
           break;
             case 'environment':
-          $url='http://localhost:8080/healthcheck/1/show-environment';
+          $url='http://localhost:8080/healthcheck/ios/1/4';
           break;
             case 'platform':
-          $url='http://localhost:8080/healthcheck/1/show-platform';
+          $url='http://localhost:8080/healthcheck/ios/1/6';
           break;
             case 'bfdsession':
-          $url='http://localhost:8080/healthcheck/1/show-bfd-neighbor';
+          $url='http://localhost:8080/healthcheck/ios/1/10';
           break;
             case 'interfacestates':
-          $url='http://localhost:8080/healthcheck/1/show-ip-interface-brief';
+          $url='http://localhost:8080/healthcheck/ios/1/9';
           break;
             case 'showinterfaces':
-          $url='http://localhost:8080/healthcheck/1/show-interfaces';
+          $url='http://localhost:8080/healthcheck/ios/1/7';
           break;
             case 'mplsinterfaces':
-          $url='http://localhost:8080/healthcheck/1/show-mpls-interfaces';
+          $url='http://localhost:8080/healthcheck/ios/1/12';
           break;
             case 'mplsneighbors':
-          $url='http://localhost:8080/healthcheck/1/show-mpls-ldp-neighbor';
+          $url='http://localhost:8080/healthcheck/ios/1/11';
           break;
-            case 'show-ip-bgp-vpnv6-unicast-vrf-LTE':
-          $url='http://localhost:8080/healthcheck/1/show-ip-bgp-vpnv6-unicast-vrf-LTE';
+            case 'bgpvsixroutes':
+          $url='http://localhost:8080/healthcheck/ios/1/17';
           break;
             case 'show-running-config-|-i-boot':
-          $url='http://localhost:8080/healthcheck/1/show-running-config-boot';
-          break; 
-          
+          $url='http://localhost:8080/healthcheck/ios/1/16';
+          break;           
             case 'cpuutilization':
-          $url='http://localhost:8080/healthcheck/1/show-process-cpu';
+          $url='http://localhost:8080/healthcheck/ios/1/1';
           break; 
-                                    case 'fivethsndbyteping':
-          $url='http://localhost:8080/healthcheck/1/ping-192.168.56.100-size-5000';
+            case 'fivethsndbyteping':
+          $url='http://localhost:8080/healthcheck/ios/1/23';
           break;
-                                    case 'twothsndbyteping':
-          $url='http://localhost:8080/healthcheck/1/ping-192.168.56.100-size-2000';
+            case 'twothsndbyteping':
+          $url='http://localhost:8080/healthcheck/ios/1/22';
+          break;
+            case 'bgpvsixneighbors':
+          $url='http://localhost:8080/healthcheck/ios/1/14';
+          break;
+            case 'bgpvfourneighbors':
+          $url='http://localhost:8080/healthcheck/ios/1/13';
+          break;
+           case 'xconnect':
+          $url='http://localhost:8080/healthcheck/ios/1/20';
+          break;
+           case 'bgpvfourroutes':
+          $url='http://localhost:8080/healthcheck/ios/1/19';
+          break;
+           case 'bootstatement':
+          $url='http://localhost:8080/healthcheck/ios/1/16';
+          break;
+           case 'interfacecounters':
+          $url='http://localhost:8080/healthcheck/ios/1/7';
           break;
 
             default: 

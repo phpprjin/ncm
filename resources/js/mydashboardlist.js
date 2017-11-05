@@ -166,7 +166,7 @@ $(document).ready(function() {
   $(".map_region").click(function(marketid) {
     $("#marketname").val($(this).data('market')); 
     $("#market-region").text($(this).data('market').replace('R' ,'Regn').replace('M','-Market')); 
-    $(location).attr("href","switchtech_devicelist.php?markets="+$(this).data('market'))
+    $(location).attr("href","switchtech_devicelist.php?markets=" + $(this).data('market') + '&city_name' )
     
   });
 

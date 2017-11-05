@@ -3,71 +3,71 @@
 				switch($command) {
 				    
 				    case 'alarmoutstanding':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/22';
 
 					break;
 				    case 'cardhardware':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/8';
 					break;
 				    case 'cardinformation':
-					$url='http://localhost:8080/healthcheck/asr5000/1';
+					$url='http://localhost:8080/healthcheck/xos/2/9';
 					break;             
 				    case 'cardtable':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/15';
 					break;
 				    case 'clock':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/1';
 					break;
 				    case 'context':
-					$url='http://localhost:8080/healthcheck/ios/1/show-version';
+					$url='http://localhost:8080/healthcheck/xos/2/6';
 					break;
 				    case 'crashlist':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/17';
 					break;
 				    case 'diameterpeers':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/16';
 					break;
 				    case 'hdraid':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/5';
 					break;
 				    case 'licenceinfo':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/12';
 					break;
  				    case 'rctstatus':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/18';
 					break;
  				    case 'showresource':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/11';
 					break;
  				    case 'services':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/7';
 					break;
  				    case 'sessionrecoverystatus':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/10';
 					break; 
 					case 'srpcheckpoint':
-					$url='http://localhost:8080/healthcheck/ios/1';
+					$url='http://localhost:8080/healthcheck/xos/2/13';
 					break; 
-          case 'srpinfo':
-					$url='http://localhost:8080/healthcheck/ios/1';
+				    case 'srpinfo':
+					$url='http://localhost:8080/healthcheck/xos/2/14';
 					break;
-          case 'srpinfochasstate':
-					$url='http://localhost:8080/healthcheck/ars5000/1/show-version';
+			            case 'srpinfochasstate':
+					$url='http://localhost:8080/healthcheck/xos/2/4';
 					break;
-          case 'systemuptime':
-					$url='http://localhost:8080/healthcheck/ars5000/1/show-version';
+			            case 'systemuptime':
+					$url='http://localhost:8080/healthcheck/xos/2/2';
 					break;
-          case 'taskresource':
-					$url='http://localhost:8080/healthcheck/ars5000/1/show-version';
+			           case 'taskresource':
+					$url='http://localhost:8080/healthcheck/xos/2/21';
 					break;
-          case 'diamproxy':
-					$url='http://localhost:8080/healthcheck/ars5000/1/show-version';
+          			   case 'diamproxy':
+					$url='http://localhost:8080/healthcheck/xos/2/19';
 					break;
-          case 'taskressessmsg':
-					$url='http://localhost:8080/healthcheck/ars5000/1/show-version';
+			          case 'taskressessmsg':
+					$url='http://localhost:8080/healthcheck/xos/2/20';
 					break;
-          case 'showversionimageversion':
-					$url='http://localhost:8080/healthcheck/ars5000/1/show-version';
+			          case 'showversionimageversion':
+					$url='http://localhost:8080/healthcheck/xos/2/3';
 					break;
 				    default: 
 					break;

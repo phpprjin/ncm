@@ -118,9 +118,9 @@ $(document).on("click","#savebutton",groupFile);
         </div>
     </div> 
     
-    <!-- 12 Oct 17: Added class login-page and NCM logo -->
+    <!-- 12 Oct 17: Added class login-page and ncm logo -->
     <div class="login-page">
-      <p class="logo"><a class="one"></a><a class="ems">NCM</a></p>
+      <p class="logo"><a class="one"></a><a class="ems">ncm</a></p>
       
     <?php
 

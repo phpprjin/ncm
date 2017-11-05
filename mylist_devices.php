@@ -55,7 +55,7 @@ $pages->paginate();
                         <div class="box box-solid">
                         <div class="box-header with-border">
                           <!-- Page title -->
-                          <h3 class="box-title">My Device List : <?php echo $title ?>  </h3>
+                          <h3 class="box-title"> List Name : <?php echo $title ?>  </h3>
                         </div>              		
                         <div style="display: none;">
                           <form class="navbar-form search" method="POST" action="mylist_devices.php" role="search">
@@ -99,15 +99,15 @@ $pages->paginate();
                                ?>  
                                <!-- Table Header section -->                                       
                                 <table class="table table_header">
-                                  <thead> 
+                                  <thead style="background-color:pink;"> 
                                     <tr>
-                                      <th width="10%"> Location</th>      
+                                      <th width="10%"> Severity</th>      
                                       <th width="20%"> Device Name</th>
                                       <th width="10%"> IP Address</th>
                                       <th width="10%">Reachable</th>
                                       <th width="10%">Operational</th>
                                       <th width="15%">Device Series</th> 
-                                      <th  width="8%">S/W Version</th>
+                                      <th  width="8%">Version</th>
                                       <th >Up Since</th>
                                     </tr>                                             
                                   </thead>  
@@ -120,7 +120,7 @@ $pages->paginate();
                                 <table style=" <?php echo ($k%2==0) ? 'background-color: rgb(236,245,245)':'background-color:rgb(245,245,245)'; ?>" class="table device_details collapsed"  data-userid="<?php echo $userid; ?>"  data-deviceid="<?php echo $device['id']; ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $k+1 ?>">
                                   <tbody>
                                     <tr>
-                                      <td width="10%"> <?php echo $device['custom_Location']; ?></td>      
+                                      <td width="10%"> <?php echo $device['severity']; ?></td>      
                                       <td width="20%"> <?php echo $device['deviceName'];  ?></td>
                                       <td width="10%"><?php echo $device['deviceIpAddr']; ?></td>
                                       <td width="10%"><?php echo $device['status'] == 1 ?  'Reachable' : 'Not Reachable'; ?></td>
@@ -165,23 +165,22 @@ $pages->paginate();
                   </div> 
                 </section> <!-- /.content -->
               </div>
-               <div id="mycmdModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!-- Content will be loaded here from "remote.php" file -->
-                </div>
-            </div>
-        </div>
-            <!-- /.content-wrapper -->
-            <footer class="main-footer">
-               Title 2017
-            </footer>
+              <div id="mycmdModal" class="modal fade">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <!-- Content will be loaded here from "remote.php" file -->
+                      </div>
+                  </div>
+              </div>
+            <!-- /.content-wrapper --> 
+               
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
             immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
+        <?php include ('footer.php'); ?> 
         <?php include ('footerFiles.php'); ?>
         <script src="resources/js/mylist_devices.js?t=".<?php echo date('his'); ?>></script>
     </body>
