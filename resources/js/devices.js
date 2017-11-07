@@ -28,11 +28,9 @@ $(document).ready(function() {
     *
     */
     $(document).on("click",".device_deatil_pop",function(){    
-        $("#myModal").modal({
-          remote: "devdetmdl.php"
-        });
-    }
-    );
-    
-  footerAlign();
+            $("#myModal").modal({
+              remote: "devdetmdl.php"
+            });
+        }
+    ); 
 });
