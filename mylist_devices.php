@@ -39,7 +39,10 @@ $pages->paginate();
 ?>
 <!DOCTYPE html>
 <html>
-   <?php include("includes.php");  ?>
+    <head>
+      <?php include("includes.php");  ?>
+      <script src="resources/js/mylist_devices.js?t=".<?php echo date('his'); ?>></script>
+    </head>
      <body class="hold-transition skin-blue sidebar-mini ownfont">
         <!-- Modal HTML -->
        
@@ -181,6 +184,5 @@ $pages->paginate();
         </div>
         <!-- ./wrapper -->
         <?php include ('footer.php'); ?>  
-        <script src="resources/js/mylist_devices.js?t=".<?php echo date('his'); ?>></script>
     </body>
 </html>

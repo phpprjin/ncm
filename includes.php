@@ -1,4 +1,4 @@
-<head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?php echo ($page_title) ? $page_title : 'title' ?></title>
@@ -37,4 +37,3 @@
         <script src="resources/js/moment.js"></script>
         <script src="resources/js/bootstrap-datetimepicker.min.js"></script>
         <script src="resources/js/global.js"></script>
-</head>
