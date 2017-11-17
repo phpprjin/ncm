@@ -39,14 +39,7 @@
                       }
                       $pages->paginate();
                       $_GET['page']=   $temp_page_var;
-                      echo '<div class="box-body" style="margin-bottom:10px;">';
-                      // Display page no of total page
-                      echo "<p class=\"paginate\">Page: $pages->current_page of $pages->num_pages</p>\n";
-
-                      // Display pagination boxes
-                      echo $pages->display_pages();
-                      echo "<div class=\"spacer\"></div>";
-                      echo '</div>';  
+                     
                       ?>
                         <table class="table  table-border">
                           <thead>
@@ -75,6 +68,14 @@
                           </tbody>
                         </table>
                       <?php
+                        echo '<div class="box-body" style="margin-top:10px;">';
+                        // Display page no of total page
+                        echo "<p class=\"paginate\">Page: $pages->current_page of $pages->num_pages</p>\n";
+
+                        // Display pagination boxes
+                        echo $pages->display_pages();
+                        echo "<div class=\"spacer\"></div>";
+                        echo '</div>';  
                     }
                      
                     

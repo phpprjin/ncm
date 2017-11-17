@@ -551,10 +551,11 @@ function insert_my_device_record($data){
 
     $db2->query($sql);
     $recordset = $db2->resultset();  
-    $listname = $recordset[0]['listname'];
+    $listname = addslashes($recordset[0]['listname']);
     
      $sql = "INSERT INTO userdevices (nodeid, userid, listid, listname) 
            VALUES($nodeid,$userid,$listid,'$listname')";
+     // echo $sql;           
      $db2->query($sql);
      $result =$db2->execute();
     
@@ -876,7 +877,7 @@ function get_market_list_new() {
 
 
 
-function getmarketroutersDetails_all($market, $page_limit) {
+function getmarketroutersDetails_all($market, $search_term, $page_limit) {
   global $db2;
   $pages = new Paginator();
  

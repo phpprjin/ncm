@@ -45,11 +45,13 @@ include 'functions.php';
                  <table class="table table-bordered"  cellspacing="0" cellpadding="0" >
                     <tbody>
                                             <tr>                  
-                                              <td><b>IOS Version </b> <?php echo  $deviceid ?></td>
+                                              <td><b>IOS Version </b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=showversion&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png"  alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['iosversion']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['iosversion']['message'].'</span>';echo $display; ?></td>
                                               <td><b>CPU Utilization</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=cpuutilization&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"></img></a><?php echo $output['cpuutilization']; ?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=cpuutilization&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"></img></a><?php $color = ($output['cpuutilization']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['cpuutilization']['message'].'</span>';
+echo $display; ?>  </td>
                                               <td><b>Free Memory</b> </td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=freememory&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['freememory']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['freememory']['message'].'</span>';
@@ -86,7 +88,11 @@ echo $display; ?></td>
                                             </tr>
                                             <tr>                  
                                               <td><b>2000 Byte Ping</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=twothsndbyteping&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['twothsndbyteping'];?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=twothsndbyteping&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['twothsndbyteping']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['twothsndbyteping']['message'].'</span>';
+echo $display; ?> 
+</td>
+
                                               <td><b>BFD Sessions</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bfdsession&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['bfdsession']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['bfdsession']['message'].'</span>';
@@ -103,7 +109,10 @@ $display ="<span style='color:".$color."'>"."<br> Trap Logging : ".$output['loge
                                             </tr>
                                             <tr>                  
                                               <td><b>5000 Byte Ping</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=fivethsndbyteping&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['fivethsndbyteping']; ?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=fivethsndbyteping&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['fivethsndbyteping']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['fivethsndbyteping']['message'].'</span>';
+echo $display; ?> 
+</td>
                                               <td><b>Interface State</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=interfacestates&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['interfacestates']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['interfacestates']['message'].'</span>';
@@ -151,7 +160,7 @@ echo $display; ?></td>
                                               <td>&nbsp;&nbsp;&nbsp;</td>                 
                                               <td>&nbsp;&nbsp;&nbsp;</td>      
                                               <td>&nbsp;&nbsp;&nbsp;</td>                                                 
-                                              <td class="run_all_checks"  data-deviceid="<?php echo $deviceid ?>"  data-userid="<?php echo $_SESSION['userid'] ?>" style="cursor: pointer;"> <b> Rerun All checks </b></td> 
+<!--                                          <td class="run_all_checks"  data-deviceid="<?php echo $deviceid ?>"  data-userid="<?php echo $_SESSION['userid'] ?>" style="cursor: pointer;"> <b> Rerun All checks </b></td> -->
                                               <td colspan="2">&nbsp;&nbsp;&nbsp;</td>         
                                             </tr>
                                           </tbody>

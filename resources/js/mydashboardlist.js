@@ -29,6 +29,16 @@ $(document).ready(function() {
     }
   });
  
+
+
+  $('#usrmyfavlstfrm').submit(function () {
+    var str = $('#addlist').val();
+    if (/^[a-zA-Z0-9- ]*$/.test(str) == false) {
+      alert('Your String Contains illegal Characters.');
+      return false;
+    }
+  });
+
   $(window).resize(function() {
     setHeight();
   });

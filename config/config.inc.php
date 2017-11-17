@@ -22,7 +22,7 @@ define('WEB_DIR', $_SERVER['DOCUMENT_ROOT'] . "/ncm/");
 //define('DB_HOST', 'txaroemsda3z');
 define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
-define('DB_NAME', 'ncm_dev');
+define('DB_NAME', 'ncmdev');
 define('DB_USER', 'root');
 define('DB_PASSWORD','');
 
