@@ -1,75 +1,78 @@
 <?php 
         $command  = $_GET['commandname'];
-        switch($command) {
-            
-          
-
+        $deviceid = $_GET['deviceid'];
+       
+        switch($command) { 
           
             case 'freememory':
-          $url='http://localhost:8080/healthcheck/ios/1/8';
-          break;
+//          $url='http://63.49.0.192:8080/healthcheck/ios/2///          
+            $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/8'; 
+            break;
             case 'buffers':
-          $url='http://localhost:8080/healthcheck/ios/1/5';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/5';
           break;             
             case 'showversion':
-          $url='http://localhost:8080/healthcheck/ios/1/2';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/2';
           break;
             case 'configregister':
-          $url='http://localhost:8080/healthcheck/ios/1/3';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/3';
           break;
             case 'environment':
-          $url='http://localhost:8080/healthcheck/ios/1/4';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/4';
           break;
             case 'platform':
-          $url='http://localhost:8080/healthcheck/ios/1/6';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/6';
           break;
             case 'bfdsession':
-          $url='http://localhost:8080/healthcheck/ios/1/10';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/10';
           break;
             case 'interfacestates':
-          $url='http://localhost:8080/healthcheck/ios/1/9';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/9';
           break;
             case 'showinterfaces':
-          $url='http://localhost:8080/healthcheck/ios/1/7';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/7';
           break;
             case 'mplsinterfaces':
-          $url='http://localhost:8080/healthcheck/ios/1/12';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/12';
           break;
             case 'mplsneighbors':
-          $url='http://localhost:8080/healthcheck/ios/1/11';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/11';
           break;
             case 'bgpvsixroutes':
-          $url='http://localhost:8080/healthcheck/ios/1/17';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/17';
           break;
             case 'show-running-config-|-i-boot':
-          $url='http://localhost:8080/healthcheck/ios/1/16';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/16';
           break;           
             case 'cpuutilization':
-          $url='http://localhost:8080/healthcheck/ios/1/1';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/1';
           break; 
             case 'fivethsndbyteping':
-          $url='http://localhost:8080/healthcheck/ios/1/23';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/23';
           break;
             case 'twothsndbyteping':
-          $url='http://localhost:8080/healthcheck/ios/1/22';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/22';
           break;
             case 'bgpvsixneighbors':
-          $url='http://localhost:8080/healthcheck/ios/1/14';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/14';
           break;
             case 'bgpvfourneighbors':
-          $url='http://localhost:8080/healthcheck/ios/1/13';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/13';
           break;
            case 'xconnect':
-          $url='http://localhost:8080/healthcheck/ios/1/20';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/20';
           break;
            case 'bgpvfourroutes':
-          $url='http://localhost:8080/healthcheck/ios/1/19';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/19';
           break;
            case 'bootstatement':
-          $url='http://localhost:8080/healthcheck/ios/1/16';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/16';
           break;
            case 'interfacecounters':
-          $url='http://localhost:8080/healthcheck/ios/1/7';
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/7';
+
+	  case 'logentries':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/15';
           break;
 
             default: 

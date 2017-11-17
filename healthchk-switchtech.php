@@ -12,7 +12,9 @@ $(document).ready(function(){
                 });            
                  $('#mycmdModal').removeData()   
                  return false;                  
-              })
+              });
+
+ 
             });        
 
 </script>
@@ -28,107 +30,129 @@ include 'functions.php';
 ?>
     <?php  
                                                //  Python API Request using curl Begins                    
-            $userid = $_GET['userid'];
+
+
+ 	          $userid = $_GET['userid'];
             $deviceid = $_GET['deviceid'];               
-                        $data = 
-                                array(
-                                "username" => $_SESSION['username'],
-                                "password" => "python",
-                                "ip_addr" => $device['deviceIpAddr'],
-                                "command" => "showversion"
-                                
-                                ); 
-                       // $url_send ="http://localhost/ncm/sshpost.php";  
-        //$url_send ="http://localhost/ncm/healthcheck/xos/1";
-          $url_send ="http://localhost:8080/healthcheck/xos/2";		
-            $deviceid = $_GET['deviceid'];              
-            $url_final = $url_send.'?deviceid='.$deviceid;            
-                        $output = json_decode(sendPostData($url_final),true);
+            $devicetype='ios';
+            $url_send =" http://txaroemsda2z.nss.vzwnet.com:8080/healthcheck/";  
+ 	          $url_final = 'http://txaroemsda2z.nss.vzwnet.com:8080/healthcheck/'.$devicetype.'/'.$deviceid;			
+            $output = json_decode(sendPostData($url_final),true);                        
+	         $_SESSION['deviceidswusr'] = $deviceid;
                         
                         ?>
-
                 <div class="ownfont box-body launch-modal">
-                  <table class="table table-bordered"  cellspacing="0" cellpadding="0" >
-                     <tbody>
+                 <table class="table table-bordered"  cellspacing="0" cellpadding="0" >
+                    <tbody>
                                             <tr>                  
-                                              <td><b>Alarm Outstanding</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=alarmoutstanding"><img src="resources/img/RDimage.png"  alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['show_alarm_outstanding']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['show_alarm_outstanding']['count'].'</span>';echo $display; ?></td>
-                                              <td><b>Card Hardware </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=cardhardware"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"></img></a><?php $color = ($output['show_card_hardware_grep_prog']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['show_card_hardware_grep_prog']['upto_date_count'].'</span>'; echo $display; ?></td>
-                                              <td><b>Card Information </b> </td>
-                                              <td> <a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=cardinformation"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php if (isset($output['show_card_info_grep_card_lock']['locked_count'])) echo 'Locked Account : '.$output['show_card_info_grep_card_lock']['locked_count']; if (isset($output['show_card_info_grep_card_lock']['unlocked_count'])) echo 'Unlocked Account : '.$output['show_card_info_grep_card_lock']['unlocked_count'];?></td>
+                                              <td><b>IOS Version </b> <?php echo  $deviceid ?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=showversion&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png"  alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['iosversion']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['iosversion']['message'].'</span>';echo $display; ?></td>
+                                              <td><b>CPU Utilization</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=cpuutilization&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"></img></a><?php echo $output['cpuutilization']; ?></td>
+                                              <td><b>Free Memory</b> </td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=freememory&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['freememory']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['freememory']['message'].'</span>';
+echo $display; ?></td>
                                             </tr>
                                             <tr>                  
-                                              <td><b>Card Table</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=cardtable"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_card_table_grep']['count'];?></td>
-                                              <td><b>clock</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=clock"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_clock'];?></td>
-                                              <td><b>Context </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=context"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['show_context']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['show_context']['active_count'].'</span>';
+                                              <td><b>Buffers</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=buffers&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['buffers']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['buffers']['message'].'</span>';
+echo $display; ?></td>
+                                              <td><b>Boot statement</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bootstatement&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['bootstatement']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['bootstatement']['message'].'</span>';
+echo $display; ?> </td>
+                                              <td><b>Platform </b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=platform&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['platform']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['platform']['message'].'</span>';
 echo $display; ?></td>
                                             </tr>
                                             
                                             <tr>                  
-                                              <td><b>Crash List</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=crashlist"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php  
-echo $output['totalcrashes']['Total_crashes']; ?></td>
-                                              <td><b>Diameter Peers</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=diameterpeers"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> 
-<?php echo $output['show_diameter_peers']['Total_peers']; ?></td>
-                                              <td><b>HD RAID</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=hdraid"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_hd_raid_grep_degrad']; ?></td>
-                                            </tr>
-                                            <tr>                  
-                                              <td><b>Licence Information</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=licenceinfo"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_license_info_grep_license_status']['license_status']; ?></td>
-                                              <td><b>RCT Status</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=rctstatus"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_rct_status']['Migrations']; ?></td>
-                                              <td><b> Show Resource </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=showresource"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['show_resource_grep_license']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['show_resource_grep_license']['within_acceptable_limits_count'].'</span>';
+                                              <td><b>Environmental</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=environment&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['environmental']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['environmental']['message'].'</span>';
+echo $display; ?></td>
+                                              <td><b>Config Register</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=configregister&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['configregister']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['configregister']['message'].'</span>';
+echo $display; ?></td>
+                                              <td><b>Interface Counters</b> </td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=interfacecounters&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['interfacecounters']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['interfacecounters']['count'].'</span>';
 echo $display; ?></td>
                                             </tr>
                                             <tr>                  
-                                              <td><b>Services</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=services"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php if (isset($output['show_service_all']['count_unique_context_id'])) echo 'Context Id :'.$output['show_service_all']['count_unique_context_id']; if (isset($output['show_service_all']['count_unique_service_id'])) echo 'Service Id : '.$output['show_service_all']['count_unique_service_id'];?></td>
-                                              <td><b>Session Recovery Status </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=sessionrecoverystatus"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_session_recovery_status_verbose']['overall_status']; ?></td> 
-</td>
-                                              <td><b>SRP Checkpoint Statistics</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=srpcheckpoint"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_srp_checkpoint_statistics_grep_sessmgrs']['number_of_sessmgrs']; ?> </td>
+                                              <td><b>2000 Byte Ping</b></td>                                              
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=twothsndbyteping&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['twothsndbyteping'];?></td>
+                                              <td><b>BFD Sessions</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bfdsession&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['bfdsession']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['bfdsession']['message'].'</span>';
+echo $display; ?></td>
+											  <td><b>Log Entries</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=logentries&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php if (isset($output['logentries']['buffer_logging']['R'])){
+													$color = ($output['logentries']['buffer_logging']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>"." Buffer Logging : ".$output['logentries']['buffer_logging']['value'].'</span>';
+											  echo $display;}?> 
+											  <?php if (isset($output['logentries']['trap_logging']['R'])) {
+												  $color = ($output['logentries']['trap_logging']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>"."<br> Trap Logging : ".$output['logentries']['trap_logging']['value'].'</span>';
+											  echo $display;}; ?></td>
                                             </tr>
                                             <tr>                  
-                                              <td><b>SRP Information </b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=srpinfo"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_srp_info']['chassis_state']; ?></td>
-                                              <td><b>SRP Information chassis State </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=srpinfochasstate"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_srp_info_grep_chassis_state'];?></td>
-                                              <td><b>System Uptime </b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=systemuptime"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['show_system_uptime'];?>                                        
+                                              <td><b>5000 Byte Ping</b></td>                                              
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=fivethsndbyteping&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['fivethsndbyteping']; ?></td>
+                                              <td><b>Interface State</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=interfacestates&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['interfacestates']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['interfacestates']['message'].'</span>';
+echo $display; ?> 
+</td>
+                                              <td><b>Xconnect</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=xconnect&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['xconnect']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['xconnect']['count'].'</span>';
+echo $display; ?></td>
+                                            </tr>
+                                            <tr>                  
+                                              <td><b>MPLS Interfaces</b></td>                                              
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=mplsinterfaces&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['mplsinterfaces']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['mplsinterfaces']['message'].'</span>';
+echo $display; ?></td>
+                                              <td><b>BGPV4Neighbors</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvfourneighbors&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['bgpvfourneighbors']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['bgpvfourneighbors']['neighbours'].'</span>';
+echo $display; ?></td>
+                                              <td><b>BGPV4Routes</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvfourroutes&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php
+$color = ($output['ran']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['ran']['count'].'</span>';
+echo $display; ?></td> 
                                             </tr>                  
                                             <tr>   
-                                              <td><b>Task Resource</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=taskresource"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['show_task_resource_grep_v_good']['R'] == 0) ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['show_task_resource_grep_v_good']['count'].'</span>';
+                                              <td><b>MPLS Neighbors</b></td>                                              
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=mplsneighbors&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['mplsneighbors']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['mplsneighbors']['message'].'</span>';
 echo $display; ?></td>
-                                              <td><b>Task Resource Diamproxy</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=diamproxy"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php echo $output['diamproxy']['count'];?></td>
-                                              <td><b>Task Resources Session Message</b></td>
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=taskressessmsg"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php
-$color = ($output['show_task_resources_grep_sessmg']['status'] == 'pass') ? 'green':'red';  
-$display ="<span style='color:".$color."'>".$output['show_task_resources_grep_sessmg']['count'].'</span>';
+                                              <td><b>BGPV6Neighbors</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvsixneighbors&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php
+$color = ($output['bgpvsixneighbors']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['bgpvsixneighbours']['neighbours'].'</span>';
+echo $display; ?></td>
+                                              <td><b>BGPV6Routes</b></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvsixroutes&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php
+$color = ($output['bgpvsixroutes']['R'] == 0) ? 'green':'red';  
+$display ="<span style='color:".$color."'>".$output['bgpvsixroutes']['count'].'</span>';
 echo $display; ?></td>
                                             </tr>                  
                                             <tr>  
                                             <!--  <td><b>Light Level</b></td>      
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=lightlevel"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php //echo $output['lightlevel']; ?></td>-->
-                                              <td><b>Show version - Image version</b></td>                                              
-                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-switches.php?commandname=showversionimageversion"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['show_version_grep_image_version'];?></td>
+                                              <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=lightlevel&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php echo $output['lightlevel']; ?></td>-->
+                                              <td>&nbsp;&nbsp;&nbsp;</td>                 
+                                              <td>&nbsp;&nbsp;&nbsp;</td>      
                                               <td>&nbsp;&nbsp;&nbsp;</td>                                                 
-                                              <td> <b> Rerun All checks </b></td> 
-                                              <td>&nbsp;&nbsp;&nbsp;</td>         
+                                              <td class="run_all_checks"  data-deviceid="<?php echo $deviceid ?>"  data-userid="<?php echo $_SESSION['userid'] ?>" style="cursor: pointer;"> <b> Rerun All checks </b></td> 
+                                              <td colspan="2">&nbsp;&nbsp;&nbsp;</td>         
                                             </tr>
                                           </tbody>
                                        </table>

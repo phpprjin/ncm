@@ -1,77 +1,83 @@
 <?php 
         $command  = $_GET['commandname'];
-				switch($command) {
-				    
-				    case 'alarmoutstanding':
-					$url='http://localhost:8080/healthcheck/xos/2/22';
+        $deviceid = $_GET['deviceid'];
+                                
+				switch($command) { 
+          
+            case 'freememory':
+//          $url='http://63.49.0.192:8080/healthcheck/ios/2///          
+            $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/8'; 
+            break;
+            case 'buffers':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/5';
+          break;             
+            case 'showversion':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/2';
+          break;
+            case 'configregister':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/3';
+          break;
+            case 'environment':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/4';
+          break;
+            case 'platform':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/6';
+          break;
+            case 'bfdsession':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/10';
+          break;
+            case 'interfacestates':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/9';
+          break;
+            case 'showinterfaces':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/7';
+          break;
+            case 'mplsinterfaces':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/12';
+          break;
+            case 'mplsneighbors':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/11';
+          break;
+            case 'bgpvsixroutes':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/17';
+          break;
+            case 'show-running-config-|-i-boot':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/16';
+          break;           
+            case 'cpuutilization':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/1';
+          break; 
+            case 'fivethsndbyteping':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/23';
+          break;
+            case 'twothsndbyteping':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/22';
+          break;
+            case 'bgpvsixneighbors':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/14';
+          break;
+            case 'bgpvfourneighbors':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/13';
+          break;
+           case 'xconnect':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/20';
+          break;
+           case 'bgpvfourroutes':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/19';
+          break;
+           case 'bootstatement':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/16';
+          break;
+           case 'interfacecounters':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/7';
 
-					break;
-				    case 'cardhardware':
-					$url='http://localhost:8080/healthcheck/xos/2/8';
-					break;
-				    case 'cardinformation':
-					$url='http://localhost:8080/healthcheck/xos/2/9';
-					break;             
-				    case 'cardtable':
-					$url='http://localhost:8080/healthcheck/xos/2/15';
-					break;
-				    case 'clock':
-					$url='http://localhost:8080/healthcheck/xos/2/1';
-					break;
-				    case 'context':
-					$url='http://localhost:8080/healthcheck/xos/2/6';
-					break;
-				    case 'crashlist':
-					$url='http://localhost:8080/healthcheck/xos/2/17';
-					break;
-				    case 'diameterpeers':
-					$url='http://localhost:8080/healthcheck/xos/2/16';
-					break;
-				    case 'hdraid':
-					$url='http://localhost:8080/healthcheck/xos/2/5';
-					break;
-				    case 'licenceinfo':
-					$url='http://localhost:8080/healthcheck/xos/2/12';
-					break;
- 				    case 'rctstatus':
-					$url='http://localhost:8080/healthcheck/xos/2/18';
-					break;
- 				    case 'showresource':
-					$url='http://localhost:8080/healthcheck/xos/2/11';
-					break;
- 				    case 'services':
-					$url='http://localhost:8080/healthcheck/xos/2/7';
-					break;
- 				    case 'sessionrecoverystatus':
-					$url='http://localhost:8080/healthcheck/xos/2/10';
-					break; 
-					case 'srpcheckpoint':
-					$url='http://localhost:8080/healthcheck/xos/2/13';
-					break; 
-				    case 'srpinfo':
-					$url='http://localhost:8080/healthcheck/xos/2/14';
-					break;
-			            case 'srpinfochasstate':
-					$url='http://localhost:8080/healthcheck/xos/2/4';
-					break;
-			            case 'systemuptime':
-					$url='http://localhost:8080/healthcheck/xos/2/2';
-					break;
-			           case 'taskresource':
-					$url='http://localhost:8080/healthcheck/xos/2/21';
-					break;
-          			   case 'diamproxy':
-					$url='http://localhost:8080/healthcheck/xos/2/19';
-					break;
-			          case 'taskressessmsg':
-					$url='http://localhost:8080/healthcheck/xos/2/20';
-					break;
-			          case 'showversionimageversion':
-					$url='http://localhost:8080/healthcheck/xos/2/3';
-					break;
-				    default: 
-					break;
-				}   
+			case 'logentries':
+          $url='http://63.49.0.192:8080/healthcheck/ios/'.$deviceid.'/15';
+          break;
+
+            default: 
+          break;
+        }   
                   /*    Ends  */    
         ?>
 <div class="modal-header">

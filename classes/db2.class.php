@@ -133,5 +133,4 @@ class db2 {
 
 }
 
-
-$db2 = new db2();  
+$db2 = new db2();

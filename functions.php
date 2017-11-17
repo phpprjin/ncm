@@ -14,9 +14,11 @@ function logToFile($filename, $msg) {
 function get_user_info($username, $password) {
 
   global $db2;
+
   if (trim($username) !='' && trim($password) != '') {
       $password= md5($password);
       $sql = "SELECT * FROM users WHERE username='" .$username. "' AND password='" .$password. "'";
+  
       $db2->query($sql);
       $rows = $db2->resultset();
       $result = $rows[0];
@@ -136,7 +138,7 @@ function get_device_list_from_nodes($user_id) {
 				
 		$sql_condition = " FROM userdevices ud
 				 JOIN nodes n on ud.nodeid = n.id 
-				 JOIN healthcheck hc ON hc.deviceid = n.id -- Need to be removed later
+				 
 				 LEFT JOIN vendors v on v.id = n.vendorId
 				 WHERE ud.userid = " . $user_id ;
 
@@ -167,6 +169,7 @@ function get_device_list_from_nodes($user_id) {
 
 	$sql = $sql_select . $sql_condition . $sql_search_cond;
 	$sql .= $pages->limit;
+        // echo "value of sql inside the get_device_list".$sql;  exit(0);
 	$db2->query($sql);
 	
 	$resultset['result'] = $db2->resultset();
@@ -335,35 +338,15 @@ function delete_alluser() {
 	$db2->execute();
 
 }
-
-
-/*
-* Api call
-*/
-
+ 
 /*
 * Api call
 */
 
 function sendPostData ($url) { 
-// print_r($data_string);
-	/* Below is for the POST method
-    	$ch = curl_init($url);
-	  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);                                                                  
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);     
-	  curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
-    'Content-Type: application/json',                                                                                
-    'Content-Length: ' . strlen($data_string))                                                                       
-);    
-	  $result = curl_exec($ch);
-	  curl_close($ch);  
-	  return $result;
-	  
-	  Ends */
-	  
-	  // Curl GET methods begins 
-	//echo "Inside the sendpostdata method value of url is $url";  
+ //exit($url);
+  // Curl GET methods begins 
+	//echo "Inside the sendpostdata method value of url is $url";;  
 	$ch = curl_init();   
     curl_setopt($ch, CURLOPT_POST, 0);
 	curl_setopt($ch, CURLOPT_HTTPGET, 1);
@@ -379,10 +362,12 @@ function sendPostData ($url) {
        print_r('Curl error: ' . curl_error($crl));
     };
     curl_close($crl);
-	return $result;
+
+    $result['message'] ='sucess';
+	return json_encode($result);
     //cURL ends	   
 	// Curl GET method ends
-};
+}
 
 function getDetailViewData($userid, $deviceid) {
 	$db2 = new db2(); 
@@ -396,15 +381,13 @@ function getDetailViewData($userid, $deviceid) {
 
 	$sql = $sql_select . $sql_condition;
 
-//echo  $sql;
-
 	logToFile(my.log, $sql);
 	$db2->query($sql);
-	 //print_R($sql);
+	 
 		$resultset['result'] = $db2->resultset(); 
 		logToFile(my.log, $resultset);
 		return $resultset;	 
-};
+}
 
 /*
 * Function to get the Switches list of user
@@ -432,7 +415,6 @@ function getSwitchDevicesListByCity($userid, $city){
 
   global $db2, $pages;
 
-  //$pages->paginate();
   $sql_count = " SELECT count(*) ";
   $sql_select = " SELECT n.id, n.deviceName, n.custom_Location, n.submarket ";
 
@@ -492,8 +474,7 @@ function get_switchlist_for_market_subregion($userid, $market, $subregion){
 
   $sql = $sql_select . $sql_join . $sql_where_condition . $sql_order;
   $sql .= $pages->limit;  
-
-// echo  $sql ;
+ 
   $db2->query($sql);
 
   $resultset['result'] = $db2->resultset(); 
@@ -545,23 +526,21 @@ function getSEuserCityList($userid)  {
 
 function usrfavritelist_display($userid){
   $db2 = new db2(); 
-  $sql_select = "SELECT id, listid, listname";
-  $sql_condition = " 
+  $sql_select = " SELECT listname, listid ";
+  $sql_condition = "  
   FROM 
   userdevices
   WHERE userid = $userid  and listid <> 0 
-  group by listid" ;
+  group by listname, listid  
+  order by listid desc ";
+
   $sql = $sql_select . $sql_condition;
   $db2->query($sql);
-  // echo $sql;
   $resultset['result'] = $db2->resultset(); 
-  // print'<pre>';
-  // print_r($resultset['result']);
-  return $resultset;   
+   return $resultset;   
 }
 
 function insert_my_device_record($data){
-  // echo "inside the function";
    $db2 = new db2();
    $listid = $data['listid'];
    $userid =$data['userid']; 
@@ -569,15 +548,13 @@ function insert_my_device_record($data){
   
 
     $sql = "SELECT  listname FROM userdevices WHERE listid = $listid group by listname ";
-    //print $sql;
+
     $db2->query($sql);
     $recordset = $db2->resultset();  
-    //print_r($recordset);    
     $listname = $recordset[0]['listname'];
     
      $sql = "INSERT INTO userdevices (nodeid, userid, listid, listname) 
            VALUES($nodeid,$userid,$listid,'$listname')";
-// echo $sql;
      $db2->query($sql);
      $result =$db2->execute();
     
@@ -586,21 +563,18 @@ function insert_my_device_record($data){
 }
 
 function insert_usrfavritedev($data){
-  // echo "inside the function";
    $db2 = new db2();
-   $lname = $data['listname'];
+   $lname = addslashes($data['listname']);
    $userid =$data['userid']; 
    $nodes = array($data['deviceid']);
-  
-
     $sql = "SELECT  max(listid) + 1  as listidmaxval FROM userdevices WHERE listid <> 0 ";
     $db2->query($sql);
     $recordset = $db2->resultset();      
     $listid = $recordset[0]['listidmaxval']+1;
     
-     $sql = "INSERT INTO userdevices (id, nodeid, userid, listid, listname) 
-           VALUES('','$nodes[$i]','$userid','$listid','$lname')";
-
+     $sql = "INSERT INTO userdevices (nodeid, userid, listid, listname) 
+           VALUES(0,$userid,$listid,'$lname')";
+// echo $sql ; 
      $_SESSION['mylistname'] = $lname;
      $_SESSION['switchlistid'] = $listid;
      $db2->query($sql);
@@ -617,18 +591,16 @@ function usrfavritecondev_display($userid,$listid){
   FROM 
   userdevices ud
   LEFT JOIN nodes n on ud.nodeid = n.id
-  WHERE ud.listid = $listid and ud.userid = $userid and ud.listid <> 0 "; 
+  WHERE ud.listid = $listid and ud.userid = $userid and ud.listid != 0  order by ud.id desc "; 
   $sql = $sql_select . $sql_condition;
- // echo "$sql";
-  $db2->query($sql);
-  
 
+  $db2->query($sql);
   $resultset['result'] = $db2->resultset(); 
+
   $resultset['mylistname'] = $resultset['result'][0]['listname'];
-  if ($resultset['result'][0]['nodeid'] == '0' ){ 
-    unset($resultset['result'][0]);
-  }
- // print_r($resultset);
+  
+  array_pop($resultset['result']);
+
   return $resultset;   
 }
 
@@ -661,29 +633,24 @@ function user_mylist_devieslist($userid,$listid){
   
   $resultset['result'] = $db2->resultset();
   $resultset['total_rec'] = $total_rec;
-  // print_r($resultset);
   return $resultset;
 }
 
 
 function usrfavritelistdel ($userid,$switchlistid){
   $db2 = new db2(); 
-  $sql = "delete from userdevices where userid = $userid and listid = $switchlistid";
-  //echo $sql;
+  $sql = "delete from userdevices where userid = $userid and listid = $switchlistid and listname !='Default'";
   $db2->query($sql);
   $db2->execute();
-  //return $resultset;   
   return;
 }
 
 
 function usrfavritelistswdel($userid,$switchlistid,$switchid){
   $db2 = new db2(); 
-  $sql = "delete from userdevices where listid = $switchlistid and nodeid = $switchid and userid = $userid";
-  $db2->query($sql);
-  $db2->execute();
-  //echo $sql;
-  //return $resultset;   
+  $sql = "delete from userdevices where listid = $switchlistid and nodeid = $switchid and userid = $userid and listname !='Default'";
+    $db2->query($sql);
+  $db2->execute(); 
   return;
 }
 
@@ -709,9 +676,7 @@ function  userexist($emailid) {
     $db2->query($sql);
     $row = $db2->resultsetCols();
     $resultset['result'] = $db2->resultset();
-   // echo "Result from user table".$sql;
-   // print_r($row); 
-   // echo '<br>';
+
    return $row;
 } 
 
@@ -776,3 +741,223 @@ function get_market_list() {
   $resultset['result'] = $db2->resultset(); 
   return $resultset;
 }
+
+
+
+
+/*
+* Functin to get the switch devices list by market and subregion wise for the user
+*/
+function get_switchlist_all_market($userid){
+
+  global $db2;
+  
+  $sql_count = " SELECT count(*) ";
+  $sql_select = " SELECT n.switch_name ";
+
+  $sql_join = " FROM  nodes n
+                      JOIN users u on u.username = n.swt_tech_id ";
+                    
+  $sql_where_condition = " WHERE u.id = $userid and n.switch_name !='' limit 0,1 ";
+
+  /*if ($market != '') {
+    $sql_where_condition .= " AND n.market  = '$market' ";
+  }
+  if ($subregion != '') {
+    $sql_where_condition .= " AND n.submarket = '$subregion' ";
+  }*/
+
+  $sql_order = " ";
+
+  $count_sql = $sql_count .  $sql_join . $sql_where_condition  ;  
+  $db2->query($count_sql);
+  $row = $db2->resultsetCols(); 
+
+  $resultset['total_rec'] = $row[0];
+  
+
+  $sql = $sql_select . $sql_join . $sql_where_condition . $sql_order;
+//  $sql .= $pages->limit;  
+
+  $db2->query($sql);
+
+  $resultset['result'] = $db2->resultset(); 
+  return $resultset;
+}
+
+
+/*
+*
+*/
+function getSWroutersDetails_all($swich_devince_name, $search_term='', $userid, $page_limit) {
+  global $db2;
+
+  $high_limit = HIGH_LIMIT;
+  $low_limit = LOW_LIMIT;
+  $pages = new Paginator();
+  $pages->default_ipp = $page_limit;
+  $temp_page_var = (isset($_GET['page'])) ? $_GET['page'] : 1;
+ 
+  if (isset($_GET['page'])) {
+
+    if ($_GET['ipp'] ==  $high_limit) {
+      $_SESSION['high_page'] = $_GET['page'];
+    }
+
+    if ($_GET['ipp'] ==  $low_limit) {
+      $_SESSION['low_page'] = $_GET['page'];
+    }
+
+
+    if ($page_limit  ==  $high_limit) {
+      $_GET['page'] = ($_SESSION['high_page']) ? $_SESSION['high_page'] : '1';
+    }
+
+    if ($page_limit  ==  $low_limit) {
+      $_GET['page'] = ($_SESSION['low_page']) ? $_SESSION['low_page'] : '1';
+    }                      
+  }
+  else {
+    unset($_SESSION['low_page']);
+    unset($_SESSION['high_page']);
+
+    $_SESSION['low_page'] = 1;
+    $_GET['ipp'] = LOW_LIMIT;
+    $_GET['page'] = 1;
+  }
+  $pages->paginate();
+  $_GET['page']=   $temp_page_var;
+
+
+
+  $sql_count = " SELECT count(*) ";
+  $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_Location, n2.connPort, n2.model, n2.systemname ";
+  $sql_condition = " FROM nodes n2 
+                      join userdevices ud on ud.nodeid = n2.id
+                      join users u on u.id = ud.userid
+                    WHERE n2.switch_name ='$swich_devince_name' AND u.id = $userid  ";
+
+  if ($search_term != '') {
+    $sql_condition .= " AND ( ";
+    $sql_condition .= "  n2.deviceName LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= "  OR n2.deviceIpAddr LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= "  OR n2.market LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= "  OR n2.submarket LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= " ) ";
+  }
+  $count_sql = $sql_count .  $sql_condition  ;  
+  $db2->query($count_sql);
+  $row = $db2->resultsetCols(); 
+
+  $resultset['total_rec'] = $row[0];
+
+  $sql = $sql_select . $sql_condition;
+  $sql .= $pages->limit;
+  
+  $db2->query($sql);
+
+  $resultset['result'] = $db2->resultset(); 
+  return $resultset;
+
+} 
+function get_market_list_new() {
+  global $db2;
+
+  $sql_select = "SELECT market as market_name ";
+  $sql_condition = " FROM nodes
+                      where market != ''
+                      GROUP BY market "; 
+  $sql = $sql_select . $sql_condition;
+  $db2->query($sql);
+   
+  $resultset['result'] = $db2->resultset(); 
+  return $resultset;
+}
+
+
+
+function getmarketroutersDetails_all($market, $page_limit) {
+  global $db2;
+  $pages = new Paginator();
+ 
+
+  $high_limit = HIGH_LIMIT;
+  $low_limit = LOW_LIMIT; 
+  $pages->default_ipp = $page_limit;
+  $temp_page_var = (isset($_GET['page'])) ? $_GET['page'] : 1;
+ 
+  if (isset($_GET['page'])) {
+
+    if ($_GET['ipp'] ==  $high_limit) {
+      $_SESSION['high_page'] = $_GET['page'];
+    }
+
+    if ($_GET['ipp'] ==  $low_limit) {
+      $_SESSION['low_page'] = $_GET['page'];
+    }
+
+
+    if ($page_limit  ==  $high_limit) {
+      $_GET['page'] = ($_SESSION['high_page']) ? $_SESSION['high_page'] : '1';
+    }
+
+    if ($page_limit  ==  $low_limit) {
+      $_GET['page'] = ($_SESSION['low_page']) ? $_SESSION['low_page'] : '1';
+    }                      
+  }
+  else {
+    unset($_SESSION['low_page']);
+    unset($_SESSION['high_page']);
+
+    $_SESSION['low_page'] = 1;
+    $_GET['ipp'] = LOW_LIMIT;
+    $_GET['page'] = 1;
+  }
+  $pages->paginate();
+  $_GET['page']=   $temp_page_var;
+
+
+  $sql_count = " SELECT count(*) ";
+  $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_Location, n2.connPort, n2.model, n2.systemname ";
+  $sql_condition = " FROM nodes n2 
+                        WHERE trim(lower(REPLACE(n2.market,' ',''))) ='$market'";
+
+  if ($search_term != '') {
+    $sql_condition .= " AND ( ";
+    $sql_condition .= "  n2.deviceName LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= "  OR n2.deviceIpAddr LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= "  OR n2.market LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= "  OR n2.submarket LIKE '%". addslashes($search_term) ."%' " ;
+    $sql_condition .= " ) ";
+  }
+  $count_sql = $sql_count .  $sql_condition  ;  
+  $db2->query($count_sql);
+  $row = $db2->resultsetCols(); 
+
+  $resultset['total_rec'] = $row[0];
+
+  $sql = $sql_select . $sql_condition;
+  $sql .= $pages->limit;
+  // echo $sql;;
+   //echo $sql; exit(0);
+  $db2->query($sql);
+  $resultset['result'] = $db2->resultset(); 
+  return $resultset;
+
+}   
+
+
+function export_table($table_name, $table_fields = array()) {
+  
+  global $db2;
+
+
+  $sql_select = " SELECT * FROM ";
+  $sql_where .= " nodes ";
+
+
+  $db2->query($sql);
+  $resultset['result'] = $db2->resultset();
+  return $resultset;
+}
+

@@ -171,4 +171,63 @@ area:focus{
   -moz-outline-style:none;  
 }
 
+.table {
+	margin-bottom: 2px;
+}
+.myswlist, .myroutelist {
+
+       width:100%;
+}
+
+.myroutelist thead, .myroutelist tbody { display: block; }
+.myswlist thead, .myswlist tbody { display: block; }
+
+.myroutelist tbody {
+height: 440px;
+overflow-y:scroll;
+}
+
+.myswlist tbody {
+height: 450px;
+overflow-y:scroll;
+}
  
+
+.panel-info>.panel-heading {
+	background-color: #f6f6f6;
+	border-color:lightgray;
+}
+
+#container_mymarketswitches .table>tbody>tr>td {
+	padding: 3px;
+}
+
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+#footer {
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+.router_search_box {
+	    padding: 9px 6px !important;
+}
+

@@ -39,10 +39,7 @@ $pages->paginate();
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-      <?php include("includes.php");  ?>
-      <script src="resources/js/mylist_devices.js?t=".<?php echo date('his'); ?>></script>
-    </head>
+   <?php include("includes.php");  ?>
      <body class="hold-transition skin-blue sidebar-mini ownfont">
         <!-- Modal HTML -->
        
@@ -102,7 +99,7 @@ $pages->paginate();
                                ?>  
                                <!-- Table Header section -->                                       
                                 <table class="table table_header">
-                                  <thead style="background-color:pink;"> 
+                                  <thead style="background-color:#f6f6f6;"> 
                                     <tr>
                                       <th width="10%"> Severity</th>      
                                       <th width="20%"> Device Name</th>
@@ -119,8 +116,8 @@ $pages->paginate();
                               }
                               ?>
                               <!-- Table Records section -->
-                              <div class="panel"  style="border: 1px solid  <?php echo ($k%2==0) ? 'lightblue':'lightgray' ?>; margin-bottom: 2px;"> 
-                                <table style=" <?php echo ($k%2==0) ? 'background-color: rgb(236,245,245)':'background-color:rgb(245,245,245)'; ?>" class="table device_details collapsed"  data-userid="<?php echo $userid; ?>"  data-deviceid="<?php echo $device['id']; ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $k+1 ?>">
+                              <div class="panel"  style="border: 1px solid  <?php echo ($k%2==0) ? '#fcfcfc':'#f6f6f6' ?>; margin-bottom: 2px;"> 
+                                <table style=" <?php echo ($k%2==0) ? 'background-color: #fcfcfc':'background-color:#ffffff'; ?>" class="table device_details collapsed"  data-userid="<?php echo $userid; ?>"  data-deviceid="<?php echo $device['id']; ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $k+1 ?>">
                                   <tbody>
                                     <tr>
                                       <td width="10%"> <?php echo $device['severity']; ?></td>      
@@ -134,7 +131,7 @@ $pages->paginate();
                                     </tr>                                             
                                   </tbody>
                                 </table> 
-                                <div id="collapse<?php echo $k+1; ?>" class="panel-collapse collapse">
+                                <div id="collapse<?php echo $k+1; ?>" class="mydevicebox_<?php echo $device['deviceid']; ?> panel-collapse collapse">
                                   <!-- Innter HTML will be depicted for the selected Device details from ajax call --> 
                                 </div>
                               </div>                                         
@@ -184,5 +181,6 @@ $pages->paginate();
         </div>
         <!-- ./wrapper -->
         <?php include ('footer.php'); ?>  
+        <script src="resources/js/mylist_devices.js?t=".<?php echo date('his'); ?>></script>
     </body>
 </html>

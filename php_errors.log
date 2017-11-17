@@ -1,0 +1,59 @@
+[10-Nov-2017 00:25:06 UTC] PHP Fatal error:  Call to undefined function get_user_info() in /var/www/html/ncm/login.php on line 9
+[10-Nov-2017 00:26:22 UTC] PHP Fatal error:  Call to undefined function get_user_info() in /var/www/html/ncm/login.php on line 9
+[10-Nov-2017 00:27:34 UTC] PHP Fatal error:  Call to undefined function user_session_check() in /var/www/html/ncm/switchtech_devicelist.php on line 7
+[10-Nov-2017 00:27:49 UTC] PHP Fatal error:  Call to undefined function get_user_info() in /var/www/html/ncm/login.php on line 9
+[10-Nov-2017 00:28:09 UTC] PHP Fatal error:  Call to undefined function get_user_info() in /var/www/html/ncm/login.php on line 9
+[10-Nov-2017 00:28:31 UTC] PHP Fatal error:  Call to undefined function get_user_info() in /var/www/html/ncm/login.php on line 9
+[10-Nov-2017 00:28:55 UTC] PHP Fatal error:  Call to undefined function get_user_info() in /var/www/html/ncm/login.php on line 9
+[12-Nov-2017 01:26:31 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[70100]: <<Unknown error>>: 1317 Query execution was interrupted' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/classes/db2.class.php(76): db2->execute()
+#2 /var/www/html/ncm/functions.php(165): db2->resultsetCols()
+#3 /var/www/html/ncm/cellsitetech_devicelist.php(23): get_device_list_from_nodes('39')
+#4 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66
+[12-Nov-2017 01:26:31 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /var/www/html/ncm/classes/db2.class.php on line 42
+[12-Nov-2017 01:26:31 UTC] PHP Fatal error:  Call to a member function prepare() on a non-object in /var/www/html/ncm/classes/db2.class.php on line 42
+[12-Nov-2017 13:32:45 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/functions.php(577): db2->execute()
+#2 /var/www/html/ncm/switchtech_devicelist.php(39): insert_usrfavritedev(Array)
+#3 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66
+[12-Nov-2017 13:33:25 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/functions.php(555): db2->execute()
+#2 /var/www/html/ncm/usrfavlistedit.php(23): insert_my_device_record(Array)
+#3 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66
+[12-Nov-2017 13:35:04 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/functions.php(577): db2->execute()
+#2 /var/www/html/ncm/switchtech_devicelist.php(39): insert_usrfavritedev(Array)
+#3 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66
+[12-Nov-2017 13:35:27 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/functions.php(555): db2->execute()
+#2 /var/www/html/ncm/usrfavlistedit.php(23): insert_my_device_record(Array)
+#3 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66
+[12-Nov-2017 13:35:31 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/functions.php(555): db2->execute()
+#2 /var/www/html/ncm/usrfavlistedit.php(23): insert_my_device_record(Array)
+#3 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66
+[12-Nov-2017 13:35:37 UTC] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000]: General error: 1364 Field 'id' doesn't have a default value' in /var/www/html/ncm/classes/db2.class.php:66
+Stack trace:
+#0 /var/www/html/ncm/classes/db2.class.php(66): PDOStatement->execute()
+#1 /var/www/html/ncm/functions.php(555): db2->execute()
+#2 /var/www/html/ncm/usrfavlistedit.php(23): insert_my_device_record(Array)
+#3 {main}
+  thrown in /var/www/html/ncm/classes/db2.class.php on line 66

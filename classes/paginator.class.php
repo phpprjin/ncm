@@ -27,12 +27,12 @@ class Paginator {
         $this->current_page = 1;
         $this->mid_range = 7;
         $this->ipp_array = array(2, 3, 5, 10, 25, 50, 100, 'All');
-        $this->items_per_page = (!empty($_GET['ipp'])) ? $_GET['ipp'] : $this->default_ipp;
+        $this->items_per_page = $this->default_ipp;
     }
 
     public function paginate() {
         if (!isset($this->default_ipp))
-            $this->default_ipp = 3;
+            $this->default_ipp = 25;
         if (isset($_GET['ipp']) && $_GET['ipp'] == 'All') {  // stacky edit
             $this->num_pages = 1;
 //			$this->items_per_page = $this->default_ipp;
