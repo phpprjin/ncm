@@ -75,7 +75,7 @@
     include ('menu.php'); 
     ?>   
   </div>
-  <div class="row">
+  <div class="row" >
     <div id="lhspanel"  class="col-sm-6 col-md-6 panel-info" style="background-color: white; min-height: 780px">
       <div id="mylist" class="panel-heading"><b>My List</b>
       </div>

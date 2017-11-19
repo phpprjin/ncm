@@ -57,9 +57,10 @@ $pages->paginate();
                           <!-- Page title -->
                           <h3 class="box-title"> List Name : <?php echo $title ?>  </h3>
                         </div>              		
-                        <div style="display: none;">
+                        <div style="display: bloc;">
                           <form class="navbar-form search" method="POST" action="mylist_devices.php" role="search">
                             <div class="input-group add-on">
+                              <input type="hidden" name="listid" id="listid" value="<?php echo $listid ?>">
                               <input class="form-control" placeholder="Search" name="search_term" id="srch-term" type="text">
                                 <div class="input-group-btn">
                                   <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search" style="color:#D52B1E"></i></button>

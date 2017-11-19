@@ -1,7 +1,7 @@
 <?php
 include 'classes/db2.class.php';
 include 'functions.php';
-
+$page_title = "Login page";
     //Destroy All sessions
     $_SESSION = array();
 

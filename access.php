@@ -4,12 +4,13 @@ include 'functions.php';
 ?> 
 <!DOCTYPE html>
 <html>
-   <?php include("headHtml.php");  ?>
+   <head>
+   <?php include("includes.php");  ?>
+ </head>
      <body class="hold-transition skin-blue sidebar-mini ownfont">
         <!-- Modal HTML -->
          <div class="wrapper">
- 
-            <?php include ('headerNavBar.php'); ?> 
+            <?php include ('menu.php'); ?> 
             <div class="content-wrapper">
             <!-- Content Wrapper. Contains page content -->
             <section class="content"  style="padding: 20px">

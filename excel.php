@@ -1,20 +1,14 @@
 <?php
 
-/*******EDIT LINES 3-8*******/
-$DB_Server = "localhost"; //MySQL Server    
-$DB_Username = "root"; //MySQL Username     
-$DB_Password = "";             //MySQL Password     
-$DB_DBName = "ncm_dev";         //MySQL Database Name  
+include ("classes/db2.class.php");
+include "classes/paginator.class.php";  
+include ("functions.php"); 
+/*******EDIT LINES 3-8*******/ 
 $DB_TBLName = "nodes"; //MySQL Table Name   
 $filename = "nodes_excelfilename";         //File Name
 /*******YOU DO NOT NEED TO EDIT ANYTHING BELOW THIS LINE*******/    
 //create MySQL connection   
-$sql = "Select * from $DB_TBLName";
-$Connect = @mysql_connect($DB_Server, $DB_Username, $DB_Password) or die("Couldn't connect to MySQL:<br>" . mysql_error() . "<br>" . mysql_errno());
-//select database   
-$Db = @mysql_select_db($DB_DBName, $Connect) or die("Couldn't select database:<br>" . mysql_error(). "<br>" . mysql_errno());   
-//execute query 
-$result = @mysql_query($sql,$Connect) or die("Couldn't execute query:<br>" . mysql_error(). "<br>" . mysql_errno());    
+$sql = "Select * from $DB_TBLName";  
 $file_ending = "xls";
 //header info for browser
 header("Content-Type: application/xls");    
