@@ -1,11 +1,11 @@
 <?php
   include ("classes/db2.class.php");
   include "classes/paginator.class.php";  
-  include ("functions.php"); 
+  include ("functions.php");   
   user_session_check(); 
   //Check for switch tech type user
   check_user_authentication('2'); 
-  $page_title = "Switchtech users list";
+  $page_title =  'NCM';
   // Default map dispaly flag true
   $show_map_flag = true;
   // Map flag set to false once map is clicked
@@ -75,17 +75,17 @@
     include ('menu.php'); 
     ?>   
   </div>
-  <div class="row" >
+  <div class="row">
     <div id="lhspanel"  class="col-sm-6 col-md-6 panel-info" style="background-color: white; min-height: 780px">
-      <div id="mylist" class="panel-heading"><b>My List</b>
+      <div id="mylist" class="panel-heading"><font color="black"><b>List Management</b></font>
       </div>
       <div class="panel-body">
-        <div class="col-md-12" style="background-color: nonelightgreen;">
+        <div class="col-md-6" style="background-color:nonelightgreen;">
           <form id="usrmyfavlstfrm" name="usrmyfavlstfrm" action="switchtech_devicelist.php" method = "POST" class="navbar-form search">
-            <div class="input-group add-on">
+            <div class="input-group add-on" style="min-width:350px;margin-left:0px;">
               <input name="addlist" id="addlist" class="form-control search-details" placeholder="Create New List"  type="text">
               <span class="input-group-btn">
-                <button class="btn btn-default search-details"  type ="submit" name="addlistbtn" name="addlistbtn"  value="Submit">Submit</button>
+                <button class="btn btn-default search-details"  type ="submit" name="addlistbtn" name="addlistbtn"  value="Submit"><font color="black"><b>Submit</b></font></button>
               </span>                                       
             </div>
           </form>
@@ -103,17 +103,17 @@
         <div class="row">
           <div id="switchlist" class="panel-warning col-md-6 ">
             <div class="panel-heading" id="delete_mylists" style="background-color:#F6F6F6";>
-              <b>My Device List </b>
+              <font color="black"><b>My Device List </b></font>
               <!-- Deleted selected switch list by drag and drop area -->
               <span id="myswitchlist_delete" type="button" class="droppable pull-right box box-danger">
-                <i class="fa fa-trash"></i>&nbsp; Delete 
+                <font color="black"><i class="fa fa-trash"></i>&nbsp; <b>Delete</b> </font>
               </span>
             </div>
             <div class ="panel-body" style="border: 1px solid #FAEBCC">
               <table  width="100%"  id="<?php echo $device['id'] ?>" class="myswlist table table-border">
                 <thead>
                   <tr>
-                    <td width="80%" >List name  </td><td  width="20%"> Edit </td><td  width="20%">View</td>           
+                    <td width="60%" ><font color="black">List name </font> </td><td  width="20%"> Edit </td><td  width="20%">View</td>           
                   </tr>
                 </thead>
                 <tbody> 
@@ -122,8 +122,8 @@
                   $myswitchlist = usrfavritelist_display($userid);                       
                   foreach($myswitchlist['result'] as $key=>$value) { 
                   ?> 
-                    <tr class="del_<?php echo $value['listid'];?>">                            
-                      <td width="73%" >
+                    <tr style='cursor:pointer' class="del_<?php echo $value['listid'];?>">                            
+                      <td width="70%" >
                         <i data-listid="<?php echo $value['listid'] ?>" data-listname=" <?php echo $value['listname']; ?>" data-deviceid="<?php echo $value['nodeid'] ?>" class="<?php echo (strtolower($value['listname']) != 'default') ? 'draggable' : '' ?> fa fa-arrows"></i>&nbsp;
                       <?php echo $value['listname']; ?>
                       </td>
@@ -145,24 +145,24 @@
           ?>
           <div class="col-md-6 panel-warning">
             <div class="panel-heading" id="mylist_delete" style="background-color:#F6F6F6";>
-              <b>View Device List :</b> <?php echo $switchlist['mylistname'] ?>
-                <!-- Deleted selected list by drag and drop area -->
-                <span type="button" class="box box-danger border pull-right"><i class="fa fa-trash"></i>&nbsp;Delete
+             <font color="black"> <b>Edit List&nbsp;:&nbsp;<?php echo $switchlist['mylistname'] ?></b></font>
+                <!-- Deleted selected list by drag	 and drop area -->
+                <span type="button" class="box box-danger border pull-right"><font color="black"><i class="fa fa-trash"></i>&nbsp;<b>Delete</b></font>
                 </span>
             </div>
             <div class ="panel-body" style="border: 1px solid #FAEBCC">
               <!-- Start : View devices list table -->
-              <table id="deviceslist" class="droppable myswlist table table-border" <?php echo ($_SESSION['switchlistid']!='') ? 'data-mylistid="'.$_SESSION['switchlistid'] .'"':'' ?>  >
-                <thead><tr><td ><b> Device Id</b> </td><td><b>Device Name</b></td></tr></thead>
+              <table id="deviceslist" class="droppable myswlist table table-border" <?php echo ($_SESSION['switchlistid']!='') ? 'data-mylistid="'.$_SESSION['switchlistid'] .'"':'' ?> width="100%" >
+                <thead><tr><td ><font color="black"><b> Device Id</b></font> </td><td><font color="black"><b>Device Name</b></font>	  	</td></tr></thead>
                 <tbody id="mydevicestbl">
                 <?php                              
                   foreach ($switchlist['result'] as $key => $listitem) {
                     ?>
-                    <tr class='<?php echo "del_" . $listitem['nodeid']; echo " swtlistid_".$_SESSION['switchlistid']; ?>'>
-                      <td align='left'>
+                    <tr style='cursor:pointer' class='<?php echo "del_" . $listitem['nodeid']; echo " swtlistid_".$_SESSION['switchlistid']; ?>'>
+                      <td width="30%">
                         <i data-listid="<?php echo $_SESSION['switchlistid']; ?>" data-deviceid="<?php echo  $listitem['nodeid'] ?>" data-devicename="<?php echo $listitem['deviceName'] ?>" class='fa fa-arrows draggable'></i>&nbsp;<?php echo $listitem['nodeid'] ?>
                       </td>
-                      <td align='left'><?php echo $listitem['deviceName'] ?></td>
+                      <td width="70%"><?php echo $listitem	['deviceName'] ?></td>
                     </tr>
                     <?php
                   }
@@ -282,7 +282,7 @@
             if (!isset($str_marketname)) { 
             ?>
               <!-- Displays user assigned switch name -->
-              <span style="padding-left: 20px; "><label>Switch Name : &nbsp; </label><?php echo $switch_device_name ?></span>
+              <span style="padding-left: 20px; "><label><font color="black"><b>Switch Name : &nbsp; </label><?php echo $switch_device_name ?></b></font></span>
             <?php 
             } 
             elseif (isset($str_marketname)) {
@@ -293,8 +293,8 @@
             }
           ?>
           <!-- Show/Hide map link and icon section -->
-          <span id="map_show_link" class="pull-right sec_without_map" style='cursor: pointer; <?php echo ($show_map_flag) ? "display: none" : "display: block" ?>' onclick="showMap()"> Show Map&nbsp;  <img width="25px" src="resources/img/usmap-icon.png" >&nbsp;</span>
-          <span id="map_hide_link" class="pull-right sec_with_map" style='cursor: pointer; <?php echo ($show_map_flag) ? "display: block" : "display: none" ?>' onclick="hideMap()"> Hide Map&nbsp;  <img width="25px" src="resources/img/usmap-icon.png" >&nbsp;</span>
+          <span id="map_show_link" class="pull-right sec_without_map" style='cursor: pointer; <?php echo ($show_map_flag) ? "display: none" : "display: block" ?>' onclick="showMap()"> <font color="black">Show Map</b>&nbsp;  <img width="25px" src="resources/img/usmap-icon.png" >&nbsp;</span>
+          <span id="map_hide_link" class="pull-right sec_with_map" style='cursor: pointer; <?php echo ($show_map_flag) ? "display: block" : "display: none" ?>' onclick="hideMap()"> <font color="black"><b>Hide Map</b>&nbsp;  <img width="25px" src="resources/img/usmap-icon.png" >&nbsp;</span>
           </form>      
         </div>
         <div  id="container_mymarketswitches" class="panel-body"> 

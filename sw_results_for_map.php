@@ -56,10 +56,10 @@
                       foreach ($device_details['result'] as $key => $output) {
                         ?>
                             <tr style="<?php echo ($k%2==0) ? 'background-color: #fcfcfc':'background-color:#ffffff'; ?>"  class="draggable table table-bordered" cellspacing="0" data-userid="<?php echo $_SESSION['userid'] ?>" data-listid="<?php echo $output['id'] ?>" data-deviceid="<?php echo $output['id']; ?>"  data-devicename="<?php echo $output['deviceName']; ?>"cellpadding="0" >        
-                              <td width="15%"><?php echo '<img src="./resources/img/router.png" alt="Router"   width="17" />&nbsp;' . $output['id']  ?></td>
+                              <td width="15%" style='cursor:pointer'><?php echo '<img src="./resources/img/router.png" alt="Router"   width="17" />&nbsp;' . $output['id']  ?></td>
                               <td width="34%" ><?php echo $output['deviceName']; ?></td>
                               <td width="20%" ><?php echo $output['deviceIpAddr']; ?></td>
-                              <td ><?php echo $output['custom_Location']; ?> </td>
+                              <td ><?php echo $output['custom_location']; ?> </td>
                             </tr>       
                         <?php
                         $k++;

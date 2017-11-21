@@ -6,7 +6,7 @@
  * @URL https://gist.github.com/geoffreyhale/57ca48bc97a7a954e9d5
  */
 // include_once("../config/config.inc.php");
-include_once($_SERVER['DOCUMENT_ROOT'] . "/ncm/config/config.inc.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/ncmver4.1.2/config/config.inc.php");
 
 class db2 {
 
@@ -133,4 +133,5 @@ class db2 {
 
 }
 
-$db2 = new db2();
+
+$db2 = new db2();  

@@ -79,7 +79,7 @@ SyntaxHighlighter.brushes.Cpp = function()
 					'bsearch calloc div exit free getenv labs ldiv malloc mblen mbstowcs ' +
 					'mbtowc qsort rand realloc srand strtod strtol strtoul system ' +
 					'wcstombs wctomb memchr memcmp memcpy memmove memset strcat strchr ' +
-					'strcmp strcoll strcpy strcspn strerror strlen strncat strncmp ' +
+					'strcmp strcoll strcpy strcspn strerror strlen strncat stroneemsp ' +
 					'strncpy strpbrk strrchr strspn strstr strtok strxfrm asctime ' +
 					'clock ctime difftime gmtime localtime mktime strftime time';
 

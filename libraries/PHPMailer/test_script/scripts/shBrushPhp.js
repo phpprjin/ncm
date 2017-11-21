@@ -60,7 +60,7 @@ SyntaxHighlighter.brushes.Php = function()
 					'parse_ini_file parse_str parse_url passthru pathinfo readlink realpath rewind rewinddir rmdir '+
 					'round str_ireplace str_pad str_repeat str_replace str_rot13 str_shuffle str_split '+
 					'str_word_count strcasecmp strchr strcmp strcoll strcspn strftime strip_tags stripcslashes '+
-					'stripos stripslashes stristr strlen strnatcasecmp strnatcmp strncasecmp strncmp strpbrk '+
+					'stripos stripslashes stristr strlen strnatcasecmp strnatcmp strncasecmp stroneemsp strpbrk '+
 					'strpos strptime strrchr strrev strripos strrpos strspn strstr strtok strtolower strtotime '+
 					'strtoupper strtr strval substr substr_compare';
 

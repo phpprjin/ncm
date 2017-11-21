@@ -6,7 +6,7 @@
 
   user_session_check();
 
-  $page_title = "Switchtech users list";
+  $page_title = "NCM";
   $city_name = '';
   $marketname = '';
 

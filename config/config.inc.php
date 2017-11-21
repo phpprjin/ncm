@@ -26,11 +26,11 @@ define('DB_NAME', 'ncmdev');
 define('DB_USER', 'root');
 define('DB_PASSWORD','');
 
-
 define('HIGH_LIMIT', 25);
-define('LOW_LIMIT', 2);
+define('LOW_LIMIT', 14);
 //define('DB_USER', 'reader');
 //define('DB_PASSWORD','redaer1103');
+
 
 
 /*       ------         */

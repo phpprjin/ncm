@@ -4,15 +4,15 @@ $mail = new PHPMailer();
 $mail->IsSMTP(); // send via SMTP
 //IsSMTP(); // send via SMTP
 $mail->SMTPAuth = true; // turn on SMTP authentication
-$mail->Username = "ncmadministrator@gmail.com"; // SMTP username
-$mail->Password = "ncmadministratorpassword"; // SMTP password
-$webmaster_email = "ncmdministrator@gmail.com"; //Reply to this email ID
+$mail->Username = "oneemsadministrator@gmail.com"; // SMTP username
+$mail->Password = "oneemsadministratorpassword"; // SMTP password
+$webmaster_email = "oneemsdministrator@gmail.com"; //Reply to this email ID
 $email="enduser@gmail.com"; // Recipients email ID
 $name="endusername"; // Recipient's name
 $mail->From = $webmaster_email;
 $mail->FromName = "ncm Administrator";
 $mail->AddAddress($email,$name);
-$mail->AddReplyTo($webmaster_email,"ncmadministrator@gmail.com");
+$mail->AddReplyTo($webmaster_email,"oneemsadministrator@gmail.com");
 $mail->WordWrap = 50; // set word wrap
 //$mail->AddAttachment("/var/tmp/file.tar.gz"); // attachment
 //$mail->AddAttachment("/tmp/image.jpg", "new.jpg"); // attachment

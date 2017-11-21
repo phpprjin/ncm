@@ -3,7 +3,6 @@
 include "classes/db2.class.php";
 include "classes/paginator.class.php";
 include 'functions.php';
-
 //Static variable values set
 if (isset($_GET['clear']) ) {
   if (strtolower($_GET['clear']) == 'search') {
@@ -30,7 +29,7 @@ if ( ! isset($device_list['result'][0]['listname'])) {
 else {
   $title = $device_list['result'][0]['listname'];
 }
-$page_title = $title;
+$page_title =  'NCM EMS';
 $pages = new paginator();
 $pages->items_total = $device_list['total_rec'];
 $pages->mid_range =7; 
@@ -57,10 +56,9 @@ $pages->paginate();
                           <!-- Page title -->
                           <h3 class="box-title"> List Name : <?php echo $title ?>  </h3>
                         </div>              		
-                        <div style="display: bloc;">
+                        <div style="display: none;">
                           <form class="navbar-form search" method="POST" action="mylist_devices.php" role="search">
                             <div class="input-group add-on">
-                              <input type="hidden" name="listid" id="listid" value="<?php echo $listid ?>">
                               <input class="form-control" placeholder="Search" name="search_term" id="srch-term" type="text">
                                 <div class="input-group-btn">
                                   <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search" style="color:#D52B1E"></i></button>
@@ -99,17 +97,16 @@ $pages->paginate();
                                 if ($k == 0) {
                                ?>  
                                <!-- Table Header section -->                                       
-                                <table class="table table_header">
+                                <table class="table table_header" width="100%">
                                   <thead style="background-color:#f6f6f6;"> 
                                     <tr>
-                                      <th width="10%"> Severity</th>      
-                                      <th width="20%"> Device Name</th>
-                                      <th width="10%"> IP Address</th>
-                                      <th width="10%">Reachable</th>
-                                      <th width="10%">Operational</th>
-                                      <th width="15%">Device Series</th> 
-                                      <th  width="8%">Version</th>
-                                      <th >Up Since</th>
+                                     <th width="5%" >Site Id</th>      
+                                      <th width="12%">Site Name</th>
+                                      <th width="13%" >Device Name</th>
+                                      <th width="10%">Ip Address</th>
+                                      <th  width="30%">DeviceSeries</th>
+                                      <th width="15%" >Node Version</th> 
+                                      <th width="15%">Last Polled</th>
                                     </tr>                                             
                                   </thead>  
                                 </table>                                          
@@ -118,17 +115,16 @@ $pages->paginate();
                               ?>
                               <!-- Table Records section -->
                               <div class="panel"  style="border: 1px solid  <?php echo ($k%2==0) ? '#fcfcfc':'#f6f6f6' ?>; margin-bottom: 2px;"> 
-                                <table style=" <?php echo ($k%2==0) ? 'background-color: #fcfcfc':'background-color:#ffffff'; ?>" class="table device_details collapsed"  data-userid="<?php echo $userid; ?>"  data-deviceid="<?php echo $device['id']; ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $k+1 ?>">
+                                <table width="100%" style=" <?php echo ($k%2==0) ? 'background-color: #fcfcfc':'background-color:#ffffff'; ?>" class="table device_details collapsed"  data-userid="<?php echo $userid; ?>"  data-deviceid="<?php echo $device['id']; ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $k+1 ?>" >
                                   <tbody>
                                     <tr>
-                                      <td width="10%"> <?php echo $device['severity']; ?></td>      
-                                      <td width="20%"> <?php echo $device['deviceName'];  ?></td>
-                                      <td width="10%"><?php echo $device['deviceIpAddr']; ?></td>
-                                      <td width="10%"><?php echo $device['status'] == 1 ?  'Reachable' : 'Not Reachable'; ?></td>
-                                      <td width="10%"><?php echo $device['investigationstate']; ?></td>
-                                      <td width="15%"><?php echo $device['model']; ?> </td> 
-                                      <td  width="8%"><?php echo $device['nodeVersion']; ?></td>
-                                      <td >Up Since <?php echo date('m/d/Y', strtotime($device['upsince'])); ?></th>
+                                      <td width="5%" style='cursor:pointer;'> <?php echo $device['csr_site_id'];?></td>
+                                      <td  width="12%" style='cursor:pointer;'> <?php echo $device['csr_site_name'];?></td>
+                                      <td width="13%" style='cursor:pointer;'><?php echo $device['deviceName'];?></td>
+                                      <td width="10%" style='cursor:pointer;'><?php echo $device['deviceipaddr'];?> </td>
+                                      <td  width="30%" style='cursor:pointer;'><?php echo $device['deviceseries'];?></td>
+                                      <td  width="15%" style='cursor:pointer;'><?php echo $device['nodeversion'];?> </td> 
+                                      <td  width="15%"style='cursor:pointer;'><?php echo $device['lastpolled']; ?></td>
                                     </tr>                                             
                                   </tbody>
                                 </table> 

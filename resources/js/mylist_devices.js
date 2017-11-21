@@ -6,7 +6,8 @@ $(document).ready(function() {
         if(!$(this).hasClass('loaded')) { 
             $.ajax({
                 type:"get",
-                url:"healthchk-switchtech.php",
+                //url:"healthchk-switchtech.php",
+                 url:"healthchk-cellsitetech.php", 
                 data: {deviceid:$(this).data('deviceid'), userid:$(this).data('userid')},
                 beforeSend: function(){
                     $thisdiv.next('div').html('<div class="text-center overlay box-body">Loading... <div class="fa fa-refresh fa-spin" style="font-size:24px; text-align:center;"></div></div>');
@@ -44,4 +45,11 @@ $(document).ready(function() {
             }
         });
     }); 
+	
+	function setHeight() {
+    $('.myswlist tbody').height(function(index, height) {
+    return window.innerHeight - $(this).offset().top + 165;
+    });
+	};    
+
 });

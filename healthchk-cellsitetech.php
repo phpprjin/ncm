@@ -124,11 +124,11 @@ echo $display; ?></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=mplsinterfaces&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['mplsinterfaces']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['mplsinterfaces']['message'].'</span>';
 echo $display; ?></td>
-                                              <td><b>BGPV4Neighbors</b></td>
+                                              <td><b>IPv4 BGP Neighbors</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvfourneighbors&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['bgpvfourneighbors']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['bgpvfourneighbors']['neighbours'].'</span>';
 echo $display; ?></td>
-                                              <td><b>BGPV4Routes</b></td>
+                                              <td><b>IPv4 BGP Routes</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvfourroutes&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php
 $color = ($output['ran']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['ran']['count'].'</span>';
@@ -139,12 +139,12 @@ echo $display; ?></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=mplsneighbors&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php $color = ($output['mplsneighbors']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['mplsneighbors']['message'].'</span>';
 echo $display; ?></td>
-                                              <td><b>BGPV6Neighbors</b></td>
+                                              <td><b>IPv6 BGP Neighbors</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvsixneighbors&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a><?php
 $color = ($output['bgpvsixneighbors']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['bgpvsixneighbours']['neighbours'].'</span>';
 echo $display; ?></td>
-                                              <td><b>BGPV6Routes</b></td>
+                                              <td><b>IPv6 BGP Routes</b></td>
                                               <td><a id="anchorcmd" class="anchorcmd" href="devdetmdl-cellsite.php?commandname=bgpvsixroutes&deviceid=<?php echo $_SESSION['deviceidcs'];?>"><img src="resources/img/RDimage.png" alt="Smiley face" height="22" width="22"> </img></a> <?php
 $color = ($output['bgpvsixroutes']['R'] == 0) ? 'green':'red';  
 $display ="<span style='color:".$color."'>".$output['bgpvsixroutes']['count'].'</span>';

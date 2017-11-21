@@ -21,7 +21,7 @@ if ( $_SESSION['userid'] && isset($_POST['search_term']) && trim($_POST['search_
 }
 
 $device_list = get_device_list_from_nodes($_SESSION['userid']); 
-$page_title = 'Cellsite tech device list';
+$page_title =  'NCM';
 $pages = new paginator();
 $pages->items_total = $device_list['total_rec'];
 $pages->mid_range =7; 
@@ -99,15 +99,13 @@ $pages->paginate();
                                 <table class="table table_header">
                                   <thead style="background-color:#f6f6f6;"> 
                                     <tr>
-                                     <th width="10%">Severity</th>      
-                                      <th width="20%">Device Name</th>
-                                      <th width="10%">IP Address</th>
-                                      <th width="10%">Reachable</th>
-                                      <th width="10%">Operational</th>
-                                      <th width="15%">Device Series</th> 
-                                      <th  width="8%">Version</th>
-                                      <th >Up Since</th>
-                                    </tr>                                             
+                                      <th width="5%" >Site Id</th>      
+                                      <th width="12%">Site Name</th>
+                                      <th width="13%" >Device Name</th>
+                                      <th width="10%">Ip Address</th>
+                                      <th  width="30%">DeviceSeries</th>
+                                      <th width="15%" >Node Version</th> 
+                                      <th width="15%">Last Polled</th>
                                   </thead>  
                                 </table>                                          
                                 <?php
@@ -119,14 +117,14 @@ $pages->paginate();
 
                                   <tbody>
                                     <tr>
-                                  <td width="10%"> <?php echo $device['severity']; ?></td>
-                                      <td width="20%"> <?php echo $device['deviceName'];  ?></td>
-                                      <td width="10%"><?php echo $device['deviceIpAddr']; ?></td>
-                                      <td width="10%"><?php echo $device['status'] == 1 ?  'Reachable' : 'Not Reachable'; ?></td>
-                                      <td width="10%"><?php echo $device['investigationstate']; ?></td>
-                                      <td width="15%"><?php echo $device['model']; ?> </td> 
-                                      <td  width="8%"><?php echo $device['nodeVersion']; ?></td>
-                                      <td >Up Since <?php echo date('m/d/Y', strtotime($device['upsince'])); ?></th>
+									  <td width="5%" style='cursor:pointer;'> <?php echo $device['csr_site_id'];?></td>
+                                      <td  width="12%" style='cursor:pointer;'> <?php echo $device['csr_site_name'];?></td>
+                                      <td width="13%" style='cursor:pointer;'><?php echo $device['deviceName'];?></td>
+                                      <td width="10%" style='cursor:pointer;'><?php echo $device['deviceipaddr'];?> </td>
+                                      <td  width="30%" style='cursor:pointer;'><?php echo $device['deviceseries'];?></td>
+                                      <td  width="15%" style='cursor:pointer;'><?php echo $device['nodeversion'];?> </td> 
+                                      <td  width="15%"style='cursor:pointer;'><?php echo $device['lastpolled']; ?></td>
+                                     
                                     </tr>                                             
                                   </tbody>
                                 </table>  
