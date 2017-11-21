@@ -130,136 +130,51 @@ function is_live_session($sessid) {
 
 function get_device_list_from_nodes($user_id) {
 
-  global $db2, $pages; 
-  $pages->paginate();
-  if ($user_id > 0) {
-    $sql_count = "SELECT COUNT(*) ";
-    $sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, n.severity, n.deviceseries ";
-        
-    $sql_condition = " FROM userdevices ud
-         JOIN nodes n on ud.nodeid = n.id 
-         
-         LEFT JOIN vendors v on v.id = n.vendorId
-         WHERE ud.userid = " . $user_id ;
+	global $db2, $pages; 
+	$pages->paginate();
+	if ($user_id > 0) {
+		$sql_count = "SELECT COUNT(*) ";
+//		$sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, n.severity, n.deviceseries ";
+	    $sql_select ="SELECT n.id, n.csr_site_id, n.csr_site_name, n.deviceName, n.deviceipaddr, n.deviceseries, n.nodeversion, n.lastpolled";			
+		$sql_condition = " FROM userdevices ud
+				 JOIN nodes n on ud.nodeid = n.id 
+				 
+				 LEFT JOIN vendors v on v.id = n.vendorId
+				 WHERE ud.userid = " . $user_id ;
 
-    $sql_search_cond = '';
-    if ( $_SESSION['search_term'] != ''){
-      $search_term = $_SESSION['search_term'];
+		$sql_search_cond = '';
+		if ( $_SESSION['search_term'] != ''){
+			$search_term = $_SESSION['search_term'];
 
-      $sql_search_cond = " AND ( n.deviceName LIKE '%" . $search_term . "%' ";      
-      $sql_search_cond .= " OR n.deviceIpAddr LIKE '%" . $search_term . "%' ";           
-      $sql_search_cond .= " OR n.custom_Location LIKE '%" . $search_term . "%' ";   
+			$sql_search_cond = " AND ( n.deviceName LIKE '%" . $search_term . "%' ";			
+			$sql_search_cond .= " OR n.deviceIpAddr LIKE '%" . $search_term . "%' ";				 	 
+			$sql_search_cond .= " OR n.custom_Location LIKE '%" . $search_term . "%' ";		
 
 /* Other fields temporarely excluded*/
 
 // $status_val = (strtolower(trim($search_term))  == 'reachable') ? '1' : '0';
 // $sql_search_cond .= " OR n.status = " . $status_val;
 
-// $sql_search_cond .= " OR n.upsince LIKE '%" . $search_term . "%' ";    
-// $sql_search_cond .= " OR n.nodeVersion LIKE '%" . $search_term . "%' ";    
+// $sql_search_cond .= " OR n.upsince LIKE '%" . $search_term . "%' ";		
+// $sql_search_cond .= " OR n.nodeVersion LIKE '%" . $search_term . "%' ";		
 
-      $sql_search_cond .= " OR n.investigationstate LIKE '%" . $search_term . "%' ";    
-      $sql_search_cond .= " OR n.model LIKE '%" . $search_term . "%' ) ";
-    }
-  }  
-  $count_sql = $sql_count . $sql_condition . $sql_search_cond;
-
-  // echo $count_sql;
-  $db2->query($count_sql);
+			$sql_search_cond .= " OR n.investigationstate LIKE '%" . $search_term . "%' ";		
+			$sql_search_cond .= " OR n.model LIKE '%" . $search_term . "%' ) ";
+		}
+	}  
+	$count_sql = $sql_count . $sql_condition . $sql_search_cond;
+	$db2->query($count_sql);
   $row = $db2->resultsetCols();
-  $total_rec = $row[0];
+	$total_rec = $row[0];
 
-  $sql = $sql_select . $sql_condition . $sql_search_cond;
-  $sql .= $pages->limit;
+	$sql = $sql_select . $sql_condition . $sql_search_cond;
+	$sql .= $pages->limit;
         // echo "value of sql inside the get_device_list".$sql;  exit(0);
-  // echo '<br>';
-  // echo $sql;
-  $db2->query($sql);
-  
-  $resultset['result'] = $db2->resultset();
-  $resultset['total_rec'] = $total_rec;
-  
-  return $resultset;
-}
-
-
-function get_device_list_from_nodes_datatable($userid) {
-
-	global $db2, $pages;
-
-  //print_r($_GET);
-  $draw = $_GET['draw'];
-  $start = isset($_GET['start']) ? $_GET['start'] : 0;
-  $length = isset($_GET['length']) ? $_GET['length'] : 10;
-  $search = trim($_GET['search']['value']) ? addslashes(trim($_GET['search']['value'])) : null;
-  $order_col = $_GET['order'][0]['column'];
-  $order_dir = $_GET['order'][0]['dir'];
-
-  $columns = array(
-    'n.id',
-    'n.csr_site_name',
-    'n.deviceName',
-    'n.market',
-    'n.deviceseries',
-    'n.nodeVersion',
-    'n.lastpolled'
-  );
-
-  if ($user_id > 0) {
-  }
-
-
-  $sql_count = "SELECT COUNT(*) ";
-  $sql_select = "SELECT " . implode(", ", $columns);
-      
-  $sql_condition = " FROM userdevices ud
-       JOIN nodes n on ud.nodeid = n.id        
-       WHERE ud.userid = " . $userid ;
-  if ($search) {
-    $sql_condition .=  " AND ( ";
-    $sql_condition .=  " n.deviceName LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.market  LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.deviceseries  LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.nodeVersion  LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.lastpolled  LIKE '%". $search ."%'";
-     $sql_condition .=  " ) ";
-  }
-  $count_sql = $sql_count . $sql_condition; 
- // echo $count_sql;
-  $db2->query($count_sql);
-  $row = $db2->resultsetCols();
-  
-  $total_rec = $row[0];
-
-
-  $sql_order = "";
-  if ($order_col != ''){
-    $sql_order = " ORDER BY " . $columns[$order_col];
-  }
-
-  if ($order_dir != ''){
-    $sql_order .= $order_dir != '' ? " $order_dir ": " asc ";
-  }
-
-    $sql_limit = " LIMIT $start, $length ";
-  
-  $sql = $sql_select . $sql_condition  . $sql_order . $sql_limit ;
-  // echo '<br>';
-  // echo $sql;
-
-  $db2->query($sql);
-  
-  
-  $resultset['draw'] = $draw;
-
-  foreach ($db2->resultset() as $key => $value) {
-    $value['DT_RowId'] = "row_" . $value['id'] ;
-    $records[$key] = $value;
-  }
-  $resultset['data'] = $records;
-  $resultset['recordsTotal'] = $total_rec;
-  $resultset['recordsFiltered'] = $total_rec;
- return $resultset;
+	$db2->query($sql);
+	
+	$resultset['result'] = $db2->resultset();
+	$resultset['total_rec'] = $total_rec;	
+	return $resultset;
 }
 
 /*
@@ -428,9 +343,9 @@ function delete_alluser() {
 */
 
 function sendPostData ($url) { 
- //exit($url);
+ 
   // Curl GET methods begins 
-	//echo "Inside the sendpostdata method value of url is $url";;  
+	//echo "Inside the sendpostdata method value of url is $url";  
 	$ch = curl_init();   
     curl_setopt($ch, CURLOPT_POST, 0);
 	curl_setopt($ch, CURLOPT_HTTPGET, 1);
@@ -446,7 +361,6 @@ function sendPostData ($url) {
        print_r('Curl error: ' . curl_error($crl));
     };
     curl_close($crl);
- 
 	return $result;
     //cURL ends	   
 	// Curl GET method ends
@@ -696,127 +610,27 @@ function user_mylist_devieslist($userid,$listid){
   $pages->paginate();
   if ($userid > 0) {
     $sql_count = "SELECT COUNT(*) ";
-    $sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, ud.listname, n.severity, n.deviceseries ";
-        
+//$sql_select = "SELECT n.id, n.custom_Location, n.deviceName, n.deviceIpAddr, n.model, v.vendorName, n.investigationstate, n.status, n.upsince, n.nodeVersion, ud.listname, n.severity, n.deviceseries ";
+ $sql_select ="SELECT n.id,n.csr_site_id, n.csr_site_name, n.deviceName, n.deviceipaddr, n.deviceseries, n.nodeversion, n.lastpolled";			        
     $sql_condition = " FROM userdevices ud
          JOIN nodes n on ud.nodeid = n.id 
-        
+         -- JOIN healthcheck hc ON hc.deviceid = n.id  
          LEFT JOIN vendors v on v.id = n.vendorId
          WHERE ud.userid = " . $userid ." and ud.listid = " . $listid ;
  
      
   }  
   $count_sql = $sql_count . $sql_condition; 
-  // echo "$count_sql";
   $db2->query($count_sql);
   $row = $db2->resultsetCols();
   $total_rec = $row[0];
 
   $sql = $sql_select . $sql_condition;
   $sql .= $pages->limit;
-  // echo "$sql";
   $db2->query($sql);
   
   $resultset['result'] = $db2->resultset();
   $resultset['total_rec'] = $total_rec;
-  return $resultset;
-}
-
-function get_user_mylist_name($userid,$listid) {
-  global $db2;
-
-  $sql = "SELECT ud.listname  FROM userdevices ud
-         JOIN nodes n on ud.nodeid = n.id 
-         
-         WHERE ud.userid = " . $userid ." and ud.listid = " . $listid . "
-         limit 0,1 " ;
-
-  $db2->query($sql);
-  
-  $resultset = $db2->resultset();
-  if(isset($resultset[0]['listname']))  {
-      return($resultset[0]['listname']);
-  }
-  else {
-    return;
-  }
-}
-
-function user_mylist_devieslist_datatable($userid,$listid){ 
-
-  
-  global $db2, $pages; 
-
-  if (!$userid) {
-    return false;
-  }
-  //print_r($_GET);
-  $draw = $_GET['draw'];
-  $start = isset($_GET['start']) ? $_GET['start'] : 0;
-  $length = isset($_GET['length']) ? $_GET['length'] : 10;
-  $search = trim($_GET['search']['value']) ? addslashes(trim($_GET['search']['value'])) : null;
-  $order_col = $_GET['order'][0]['column'];
-  $order_dir = $_GET['order'][0]['dir'];
-
-  $columns = array(
-    'n.id',
-    'n.csr_site_name',
-    'n.deviceName',
-    'n.market',
-    'n.deviceseries',
-    'n.nodeVersion',
-    'n.lastpolled'
-  );
- 
-
-  $sql_count = "SELECT COUNT(*) ";
-  $sql_select = "SELECT " . implode(", ", $columns);
-      
-  $sql_condition = " FROM userdevices ud
-       JOIN nodes n on ud.nodeid = n.id        
-       WHERE ud.userid = " . $userid ." and ud.listid = " . $listid ;
-  if ($search) {
-    $sql_condition .=  " AND ( ";
-    $sql_condition .=  " n.deviceName LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.market  LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.deviceseries  LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.nodeVersion  LIKE '%". $search ."%'";
-    $sql_condition .=  " OR n.lastpolled  LIKE '%". $search ."%'";
-     $sql_condition .=  " ) ";
-  }
-  $count_sql = $sql_count . $sql_condition; 
-  // echo $count_sql;
-  $db2->query($count_sql);
-  $row = $db2->resultsetCols();
-  
-  $total_rec = $row[0];
-
-
-  $sql_order = "";
-  if ($order_col != ''){
-    $sql_order = " ORDER BY " . $columns[$order_col];
-  }
-
-  if ($order_dir != ''){
-    $sql_order .= $order_dir != '' ? " $order_dir ": " asc ";
-  }
-
-    $sql_limit = " LIMIT $start, $length ";
-  
-  $sql = $sql_select . $sql_condition  . $sql_order . $sql_limit ;
-
-  $db2->query($sql);
-  
-  
-  $resultset['draw'] = $draw;
-
-  foreach ($db2->resultset() as $key => $value) {
-    $value['DT_RowId'] = "row_" . $value['id'] ;
-    $records[$key] = $value;
-  }
-  $resultset['data'] = $records;
-  $resultset['recordsTotal'] = $total_rec;
-  $resultset['recordsFiltered'] = $total_rec;
   return $resultset;
 }
 
@@ -1015,7 +829,7 @@ function getSWroutersDetails_all($swich_devince_name, $search_term='', $userid, 
 
 
   $sql_count = " SELECT count(*) ";
-  $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_Location, n2.connPort, n2.model, n2.systemname ";
+  $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_location, n2.connPort, n2.model, n2.systemname ";
   $sql_condition = " FROM nodes n2 
                       join userdevices ud on ud.nodeid = n2.id
                       join users u on u.id = ud.userid
@@ -1039,7 +853,6 @@ function getSWroutersDetails_all($swich_devince_name, $search_term='', $userid, 
   $sql .= $pages->limit;
   
   $db2->query($sql);
-
   $resultset['result'] = $db2->resultset(); 
   return $resultset;
 
@@ -1102,7 +915,7 @@ function getmarketroutersDetails_all($market, $search_term, $page_limit) {
 
 
   $sql_count = " SELECT count(*) ";
-  $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_Location, n2.connPort, n2.model, n2.systemname ";
+  $sql_select = " SELECT n2.id,n2.deviceName,n2.deviceIpAddr, n2.custom_location, n2.connPort, n2.model, n2.systemname ";
   $sql_condition = " FROM nodes n2 
                         WHERE trim(lower(REPLACE(n2.market,' ',''))) ='$market'";
 
